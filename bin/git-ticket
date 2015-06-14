@@ -10,7 +10,7 @@ get_string() {
 
 case $1 in 
 	init)
-		if git checkout --orphan ticket 2> /dev/null
+		if git checkout --orphan ticket &> /dev/null
 		then
 			echo Created new branch \'ticket\'
 			#remove files in branch
@@ -38,7 +38,7 @@ case $1 in
 	list)
 		;;
 	new)
-		if git checkout ticket 2> /dev/null
+		if git checkout ticket &> /dev/null
 		then
 			TMP_FILE=$(mktemp)
 
@@ -62,7 +62,7 @@ case $1 in
 
 			#create the issue by making directories
 			cd ticket
-			if mkdir -p $ROOT 2> /dev/null
+			if mkdir -p $ROOT &> /dev/null
 			then
 				cd $ROOT
 			fi
@@ -75,9 +75,9 @@ case $1 in
 			echo open    > 'status'
 
 			cd -
-			git add -A                            2> /dev/null
-			git commit -m "Added ticket ${TITLE}" 2> /dev/null
-			git checkout $BRANCH                  2> /dev/null
+			git add -A                            &> /dev/null
+			git commit -m "Added ticket ${TITLE}" &> /dev/null
+			git checkout $BRANCH                  &> /dev/null
 		else
 			echo Tickets have not been initialized yet, or you have uncommitted changes
 		fi
