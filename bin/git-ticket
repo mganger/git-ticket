@@ -1,4 +1,68 @@
 #!/usr/bin/python
 
+import sys
+args = sys.argv[1:]
 from git import Repo
+import os
+join = os.path.join
 
+repo = Repo.init(join(rw_dir, 'bare_repo'))
+
+arg = args[0]
+
+get_ticket(string):
+	#check for ticket
+	#return fully qualified hash
+
+if arg  == 'init':
+	#Use project name
+	#Check for ticket branch with the name 'project-$name'
+	#Create a new branch for the project
+	#Touch '.ticket' and do the initial commit
+
+elif arg == 'project':
+	#Check for project branch
+	#Write the project to .git/current_project
+
+elif arg == 'new':
+	#Check that there is a project in the .git folder
+	#Get a tmp file and do the whole git commit thing
+	#Parse the ticket for (use yaml):
+	#	title
+	#	assignee       (default current)
+	#	start-date     (default today)
+	#	due-date       (optional)
+	#	dependent
+	#	type           (default feature, else hotfix, support)
+	#	state          (default open)
+	#	comments
+
+	#Check for dependent ticket; if none, reopen file and tell user
+	#Create a hash based on the title
+	#Save the file to tickets directory
+
+elif arg == 'list':
+	#Make a tree of all open tickets
+	#	Show the hash as well as the number
+	#all:
+	#	show all tickets (open, closed, invalid, hold, in-progress)
+	#open:
+	#closed:
+	#invalid:
+	#in-progress
+
+elif arg == 'start':
+	#Check for ticket; if it is a super, and there are open/in-progress tickets below it, close
+	#Create a new branch like: git-flow feature start PROJECT-HASH-title-in-lowercase
+	#set current ticket to in-progress
+
+elif arg == 'finish':
+	#check for ticket using the branch name
+	#run git-flow feature finish
+	#mark ticket as closed
+
+elif arg == 'state':
+	#check for ticket
+	#allow open, closed, invalid, hold, in-progress
+else:
+	#show default message

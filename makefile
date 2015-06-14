@@ -4,6 +4,9 @@ BINS_LOCAL  = $(patsubst bin/%, ~/bin/%, $(BINS))
 
 HOME = $(shell echo $$HOME)
 
+syntax:
+	python -m py_compile bin/git-ticket
+
 test: install-local
 	git ticket
 
