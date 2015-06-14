@@ -5,7 +5,7 @@ BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
 get_string() {
 	string=$2
 	file=$1
-	grep $string $file | sed -r "s/${string}\\s*:\\s*//"
+	grep $string $file | cut -d: -f 2
 }
 
 case $1 in 
