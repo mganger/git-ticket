@@ -38,8 +38,6 @@ case $1 in
 	list)
 		;;
 	new)
-		git stash
-		
 		if git checkout ticket 2> /dev/null
 		then
 			TMP_FILE=$(mktemp)
@@ -79,9 +77,8 @@ case $1 in
 			git commit -m "Added ticket ${TITLE}" 2> /dev/null
 			git checkout $BRANCH                  2> /dev/null
 		else
-			echo Tickets have not been initialized yet
+			echo Tickets have not been initialized yet, or you have uncommitted changes
 		fi
-		git stash pop
 		;;
 	points)
 		;;
