@@ -1,14 +1,20 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
 args = sys.argv[1:]
+exit = sys.exit
 from git import Repo
 import os
 join = os.path.join
 
-repo = Repo.init(join(rw_dir, 'bare_repo'))
+repo = Repo('current-path')
 
-arg = args[0]
+arg   = ''
+param = ''
+try:
+	arg   = args[0]
+	param = args[1]
+except: pass
 
 get_ticket(string):
 	#check for ticket
@@ -16,10 +22,19 @@ get_ticket(string):
 
 if arg  == 'init':
 	#Use project name
-	#Check for ticket branch with the name 'project-$name'
-	#Create a new branch for the project
+	assert arg != '', project_help_message
+
+	#Create new branch with name ticket-PROJECT
+	project = param.upper()
+
+	new_branch = repo.create_head('ticket-'+project, commit = None)
+	assert repo.active_branch not in repo.branches, 'Project already exists'
+
 	#Touch '.ticket' and do the initial commit
-	#add commit hook to folder (.git/hooks/commit-msg)
+	if not os.path.exists('.git/.ticket'):
+		open(fname, 'a').close()
+
+	#TODO add commit hook to folder (.git/hooks/commit-msg)
 
 elif arg == 'project':
 	#Check for project branch
