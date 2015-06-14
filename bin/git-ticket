@@ -42,6 +42,15 @@ case $1 in
 			echo No ticket currently in development
 		fi	
 		;;
+	init)
+		echo 'BRANCH_NAME=$(git symbolic-ref --short HEAD | cut -d- -f 1 | cut -d/ -f 2 | xargs)
+		if [ -n $BRANCH_NAME ] 
+		then
+			sed -i.bak -e "1s/^/[$BRANCH_NAME] /" $1
+		fi' > .git/hooks/prepare-commit-message
+		chmod +x .git/hooks/prepare-commit-message
+		ti init
+		;;
 	*)
 		ti $@
 		;;
