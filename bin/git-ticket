@@ -58,6 +58,8 @@ case $1 in
 
 			HASH=$(echo -n $TITLE | sha256sum)
 
+			echo $TITLE
+
 			#create the issue by making directories
 			cd ticket
 			if mkdir -p $ROOT
