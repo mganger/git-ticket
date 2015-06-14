@@ -62,7 +62,7 @@ case $1 in
 
 			#create the issue by making directories
 			cd ticket
-			if mkdir -p $ROOT 2> /dev/null
+			if mkdir -p $ROOT
 			then
 				cd $ROOT
 			fi
