@@ -19,6 +19,7 @@ if arg  == 'init':
 	#Check for ticket branch with the name 'project-$name'
 	#Create a new branch for the project
 	#Touch '.ticket' and do the initial commit
+	#add commit hook to folder (.git/hooks/commit-msg)
 
 elif arg == 'project':
 	#Check for project branch
