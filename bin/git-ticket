@@ -52,11 +52,11 @@ case $1 in
 			echo "desc   : " >> $TMP_FILE
 			vim $TMP_FILE
 
-			TITLE= $(get_string $TMP_FILE title)
-			DESC=  $(get_string $TMP_FILE desc)
-			TYPE=  $(get_string $TMP_FILE 'type')
+			TITLE=$(get_string $TMP_FILE title)
+			DESC=$(get_string $TMP_FILE desc)
+			TYPE=$(get_string $TMP_FILE 'type')
 			ASSIGN=$(get_string $TMP_FILE assign)
-			ROOT=  $(get_string $TMP_FILE root)
+			ROOT=$(get_string $TMP_FILE root)
 
 			HASH=$(echo -n $TITLE | sha256sum)
 
