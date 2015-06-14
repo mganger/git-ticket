@@ -9,6 +9,7 @@ args = sys.argv[1:]
 exit = sys.exit
 from git import Repo
 import os
+import json
 join = os.path.join
 
 repo = Repo(os.getcwd())
@@ -23,26 +24,6 @@ state:
 comments: 
 """
 
-import json
-import re
-
-#shameless copy paste from json/decoder.py
-FLAGS = re.VERBOSE | re.MULTILINE | re.DOTALL
-WHITESPACE = re.compile(r'[ \t\n\r]*', FLAGS)
-
-class ConcatJSONDecoder(json.JSONDecoder):
-    def decode(self, s, _w=WHITESPACE.match):
-        s_len = len(s)
-
-        objs = []
-        end = 0
-        while end != s_len:
-            obj, end = self.raw_decode(s, idx=_w(s, end).end())
-            end = _w(s, end).end()
-            objs.append(obj)
-        return objs
-
-
 arg   = ''
 param = ''
 try:
@@ -54,6 +35,22 @@ def get_ticket(string):
 	pass
 	#check for ticket
 	#return fully qualified hash
+def get_tickets():
+	with open('.ticket') as file:
+		return json.load(file)
+def write_tickets(obj):
+	with open('.ticket','w') as file:
+		json.dump(obj,file)
+def project():
+	with open('.git/current_project') as file:
+		return file.read().strip()
+def project_branch():
+	return 'ticket-'+project()
+
+def checkout(this_repo=repo,name):
+	b_current = this_repo.active_branch
+	repo.git.checkout(name)
+	return b_current
 
 if arg  == 'init':
 	#Use project name
@@ -71,7 +68,9 @@ if arg  == 'init':
 		os.system("git clean -fdx")
 		os.system("git reset")
 		open(project, 'w').write(project+'\n')
-		os.system("git add {}".format(project))
+		with open('.ticket', 'w') as file:
+			yaml.dump([],file)
+		os.system("git add {} .ticket".format(project))
 		os.system('git commit -m "Inital commit of ticket-{} branch"'.format(project))
 	except:
 		print traceback.format_exc()
@@ -111,32 +110,48 @@ elif arg == 'new':
 		os.system("vim {}".format(msg.name))
 		msg.seek(0)
 		info = yaml.safe_load(msg)
+	#defaults
+	if info['state'] is None:
+		info['state'] = 'open'
 
+
+	#Error checking
 	if info['title'] is None:
 		print 'Abort new ticket'
 		exit(1)
-
 	if info['type'] not in {'feature', 'hotfix', 'release', 'support'}:
 		print 'Invalid type'
 		exit(2)
+	if info['state'] not in {'open', 'closed', 'in-progress', 'invalid', 'hold'}:
+		print 'Invalid state'
 
+	#Hash
 	info['hash'] = sha256(info['title']).hexdigest()
 
-	project = open('.git/current_project').read().strip()
-	project_branch = 'ticket-'+project
+	#Change branches
+	branch = checkout(name=project_branch())
+
+	#Load current tickets from file
+	ticks = get_tickets()
+
+	for ticket in ticks:
+		 if ticket['hash'] == info['hash']:
+			print 'Ticket already exists'
+			exit(1)
+
+	ticks.append(info)
 
 	#Save the file to tickets directory
-	b_current = repo.active_branch
-	repo.git.checkout(project_branch)
-	with open('.tickets', 'a') as tickets:
-		yaml.dump(info, tickets)
-	repo.index.add(['.tickets'])
+	write_tickets(ticks)
+
+	repo.index.add(['.ticket'])
 	repo.index.commit('Added [{}-{}]'.format(project, info['hash'][:6]))
-	repo.git.checkout(b_current)
+	checkout(name=branch)
 
 
 elif arg == 'list':
-	pass
+	branch = checkout(name=project_branch())
+
 	#Make a tree of all open tickets
 	#	Show the hash as well as the number
 	#all:
@@ -145,6 +160,7 @@ elif arg == 'list':
 	#closed:
 	#invalid:
 	#in-progress
+	checkout(name=branch)
 
 elif arg == 'start':
 	pass
