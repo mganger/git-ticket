@@ -2,11 +2,15 @@
 
 BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
 
+get_string(file, string) {
+	grep $string $file | sed -r s/${string}\s*:\s*//
+}
+
 case $1 in 
 	init)
-		#check for (orphan) branch ticket
 		if git checkout --orphan ticket 2> /dev/null
-		then echo Created new branch \'ticket\'
+		then
+			echo Created new branch \'ticket\'
 			#remove files in branch
 			rm -rf $(ls)
 
@@ -29,11 +33,40 @@ case $1 in
 		;;
 	comment)
 		;;
-	init)
-		;;
 	list)
 		;;
 	new)
+		if git checkout ticket 2> /dev/null
+		then
+			TMP_FILE=$(mktemp)
+
+			#copy file into it
+			cp new_issue $TMP_FILE
+			vim $TMP_FILE
+
+			TITLE= $(get_string $TMP_FILE title)
+			DESC=  $(get_string $TMP_FILE desc)
+			TYPE=  $(get_string $TMP_FILE 'type')
+			ASSIGN=$(get_string $TMP_FILE assign)
+			ROOT=  $(get_string $TMP_FILE root)
+
+			HASH=$(echo -n $TITLE | sha256sum)
+
+			#create the issue by making directories
+			mkdir -p $ROOT/$TITLE
+			cd $ROOT/$TITLE
+			cat $ASSIGN > assigned-to
+			cat $DESC   > description
+			cat $TYPE   > 'type'
+			cat $HASH   > 'hash'
+			cat open    > 'status'
+
+			cd -
+			git add -A
+			git commit -m "Added ticket ${TITLE}"
+		else
+			echo Tickets have not been initialized yet
+		fi
 		;;
 	points)
 		;;
@@ -44,8 +77,6 @@ case $1 in
 	state)
 		;;
 	sync)
-		;;
-	tag)
 		;;
 	*)
 		;;
