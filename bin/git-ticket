@@ -66,11 +66,7 @@ case $1 in
 			then
 				cd $ROOT
 			fi
-			cd $TITLE
-			echo $ASSIGN
-			echo $DESC
-			echo $TYPE
-			echo $HASH
+			mkdir $TITLE && cd $TITLE
 
 			echo $ASSIGN > assigned-to
 			echo $DESC   > description
@@ -79,9 +75,9 @@ case $1 in
 			echo open    > 'status'
 
 			cd -
-			git add -A ticket
-			git commit -m "Added ticket ${TITLE}"
-			git checkout $BRANCH
+			git add -A ticket                     2> /dev/null
+			git commit -m "Added ticket ${TITLE}" 2> /dev/null
+			git checkout $BRANCH                  2> /dev/null
 		else
 			echo Tickets have not been initialized yet
 		fi
