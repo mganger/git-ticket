@@ -1,33 +1,24 @@
 #!/bin/bash
 
-
-CURRENT_DIR=$(pwd)
-WORKING_DIR=$(mktemp -d)
-cd $WORKING_DIR
+BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
 
 case $1 in 
 	init)
-		git clone $CURRENT_DIR
-		WORKING_DIR+="/"
-		WORKING_DIR+=$(basename $CURRENT_DIR)
-		cd $WORKING_DIR
-
 		#check for (orphan) branch ticket
-		if [[ $(git checkout --orphan ticket) -ne '0' ]]
-		then
-			echo "Init error: \'ticket\' branch already exists"
-			exit 1
+		if git checkout --orphan ticket 2> /dev/null
+		then echo Created new branch \'ticket\'
+			#remove files in branch
+			rm -rf $(ls)
+
+			#make ticket directory
+			mkdir ticket
+			touch ticket/.ticket
+			git add -A
+			git commit -m 'Initial ticket branch commit'
+			git checkout $BRANCH
+		else
+			echo Tickets already initialized
 		fi
-		echo done
-
-		#remove files in branch
-		rm -rf $(ls)
-
-		#make ticket directory
-		mkdir ticket
-		touch ticket/.ticket
-		git add -A
-		git commit -m 'Initial ticket branch commit'
 		;;
 
 	assign)
@@ -59,9 +50,3 @@ case $1 in
 	*)
 		;;
 esac
-
-cd $CURRENT_DIR
-git fetch $WORKING_DIR
-git pull
-rm -rf $WORKING_DIR
-
