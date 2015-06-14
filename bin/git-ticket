@@ -1,52 +1,48 @@
 #!/bin/bash
 
-BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
-
 case $1 in 
-	init)
-		#check for (orphan) branch ticket
-		if git checkout --orphan ticket 2> /dev/null
-		then echo Created new branch \'ticket\'
-			#remove files in branch
-			rm -rf $(ls)
+	start)
+		ti checkout $1
+		tmp=$(mktemp)
+		ti show $1 > $tmp
 
-			#make ticket directory
-			mkdir ticket
-			touch ticket/.ticket
-			git add -A
-			git commit -m 'Initial ticket branch commit'
-			git checkout $BRANCH
-		else
-			echo Tickets already initialized
-		fi
-		;;
+		title=$(grep Title $tmp | cut -d: -f 2 | xargs | sed -r 's/\s+/-/g' | tr '[:upper:]' '[:lower:]')
+		id=$(grep TicId $tmp | cut -d: -f 2 | xargs | cut -c 1-6)
 
-	assign)
-		;;
-	attach)
-		;;
-	checkout)
-		;;
-	comment)
-		;;
-	init)
+		echo $title > .git/current_title
+		echo $id    > .git/current_ticket
+
+		git flow feature start $id-$title
 		;;
 	list)
+		case $2 in
+			--number|-n)
+				ti list | tail -n +4 | head -n -1 | cat -n
+				;;
+			*)
+				ti $@
+				;;
+		esac
 		;;
-	new)
+	finish)
+		if [ -e .git/current_title -a -e .git/current_ticket ]
+		then
+			git flow feature finish $(cat current_title)-$(cat current_ticket)
+			rm .git/current_title
+			rm .git/current_ticket
+		else
+			echo No ticket checked out
+		fi	
 		;;
-	points)
-		;;
-	recent)
-		;;
-	show)
-		;;
-	state)
-		;;
-	sync)
-		;;
-	tag)
+	current)
+		if [ -e .git/current_title -a -e .git/current_ticket ]
+		then
+			echo $(cat current_title)-$(cat current_ticket)
+		else
+			echo No ticket currently in development
+		fi	
 		;;
 	*)
+		ti $@
 		;;
 esac
