@@ -66,7 +66,7 @@ case $1 in
 			then
 				cd $ROOT
 			fi
-			mkdir -p$TITLE &>
+			mkdir -p $TITLE &>
 			cd $TITLE      &>
 
 			echo $ASSIGN > assigned-to
