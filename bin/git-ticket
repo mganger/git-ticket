@@ -24,6 +24,7 @@ case $1 in
 		;;
 	finish)
 			id=$(git symbolic-ref --short HEAD | cut -d/ -f 2 | cut -d- -f 1 | xargs)
+			tag=$(git symbolic-ref --short HEAD | cut -d/ -f 1 | xargs)
 			ti state $id resolved
 			git flow feature finish
 		;;
