@@ -2,7 +2,9 @@
 
 BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
 
-get_string(file, string) {
+get_string() {
+	string=$2
+	file=$1
 	grep $string $file | sed -r s/${string}\s*:\s*//
 }
 
@@ -36,12 +38,18 @@ case $1 in
 	list)
 		;;
 	new)
+		git stash
+		
 		if git checkout ticket 2> /dev/null
 		then
 			TMP_FILE=$(mktemp)
 
 			#copy file into it
-			cp new_issue $TMP_FILE
+			echo "title  : " >> $TMP_FILE
+			echo "type   : " >> $TMP_FILE
+			echo "assign : " >> $TMP_FILE
+			echo "root   : " >> $TMP_FILE
+			echo "desc   : " >> $TMP_FILE
 			vim $TMP_FILE
 
 			TITLE= $(get_string $TMP_FILE title)
@@ -53,20 +61,31 @@ case $1 in
 			HASH=$(echo -n $TITLE | sha256sum)
 
 			#create the issue by making directories
-			mkdir -p $ROOT/$TITLE
-			cd $ROOT/$TITLE
-			cat $ASSIGN > assigned-to
-			cat $DESC   > description
-			cat $TYPE   > 'type'
-			cat $HASH   > 'hash'
-			cat open    > 'status'
+			cd ticket
+			if mkdir -p $ROOT 2> /dev/null
+			then
+				cd $ROOT
+			fi
+			cd $TITLE
+			echo $ASSIGN
+			echo $DESC
+			echo $TYPE
+			echo $HASH
+
+			echo $ASSIGN > assigned-to
+			echo $DESC   > description
+			echo $TYPE   > 'type'
+			echo $HASH   > 'hash'
+			echo open    > 'status'
 
 			cd -
-			git add -A
+			git add -A ticket
 			git commit -m "Added ticket ${TITLE}"
+			git checkout $BRANCH
 		else
 			echo Tickets have not been initialized yet
 		fi
+		git stash pop
 		;;
 	points)
 		;;
