@@ -4,6 +4,9 @@ BINS_LOCAL  = $(patsubst bin/%, ~/bin/%, $(BINS))
 
 HOME = $(shell echo $$HOME)
 
+test: install-local
+	git ticket
+
 install:   perms $(BINS_GLOBAL)
 uninstall: BINS_TARGET = $(BINS_GLOBAL)
 uninstall: perms uninstall-to

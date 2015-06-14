@@ -1,0 +1,52 @@
+#!/bin/bash
+
+BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
+
+case $1 in 
+	init)
+		#check for (orphan) branch ticket
+		if git checkout --orphan ticket 2> /dev/null
+		then echo Created new branch \'ticket\'
+			#remove files in branch
+			rm -rf $(ls)
+
+			#make ticket directory
+			mkdir ticket
+			touch ticket/.ticket
+			git add -A
+			git commit -m 'Initial ticket branch commit'
+			git checkout $BRANCH
+		else
+			echo Tickets already initialized
+		fi
+		;;
+
+	assign)
+		;;
+	attach)
+		;;
+	checkout)
+		;;
+	comment)
+		;;
+	init)
+		;;
+	list)
+		;;
+	new)
+		;;
+	points)
+		;;
+	recent)
+		;;
+	show)
+		;;
+	state)
+		;;
+	sync)
+		;;
+	tag)
+		;;
+	*)
+		;;
+esac
