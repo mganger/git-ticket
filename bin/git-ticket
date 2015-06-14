@@ -1,52 +1,47 @@
 #!/bin/bash
 
-BRANCH=$(git status | head -1 | sed -r 's/On branch (.*)$/\1/')
-
 case $1 in 
-	init)
-		#check for (orphan) branch ticket
-		if git checkout --orphan ticket 2> /dev/null
-		then echo Created new branch \'ticket\'
-			#remove files in branch
-			rm -rf $(ls)
+	start)
+		ti checkout $2
+		tmp=$(mktemp)
+		ti show > $tmp
 
-			#make ticket directory
-			mkdir ticket
-			touch ticket/.ticket
-			git add -A
-			git commit -m 'Initial ticket branch commit'
-			git checkout $BRANCH
-		else
-			echo Tickets already initialized
-		fi
-		;;
+		title=$(grep Title $tmp | cut -d: -f 2 | xargs | sed -r 's/\s+/-/g' | tr '[:upper:]' '[:lower:]')
+		id=$(grep TicId $tmp | cut -d: -f 2 | xargs | cut -c 1-6)
+		tag=$(grep Tags $tmp | cut -d: -f 2 | cut -d, -f 1 | xargs)
 
-	assign)
-		;;
-	attach)
-		;;
-	checkout)
-		;;
-	comment)
-		;;
-	init)
+		git flow $tag start $id-$title
 		;;
 	list)
+		case $2 in
+			--number|-n)
+				ti list | tail -n +4 | head -n -1 | cat -n
+				;;
+			*)
+				ti $@
+				;;
+		esac
 		;;
-	new)
+	finish)
+			id=$(git symbolic-ref --short HEAD | cut -d/ -f 2 | cut -d- -f 1 | xargs)
+			ti state $id resolved
+			git flow feature finish
 		;;
-	points)
+	current)
+		id=$(git symbolic-ref --short HEAD | cut -d/ -f 2 | cut -d- -f 1 | xargs)
+		echo [$id]
 		;;
-	recent)
-		;;
-	show)
-		;;
-	state)
-		;;
-	sync)
-		;;
-	tag)
+	init)
+		echo '#!/bin/bash
+		BRANCH_NAME=$(git symbolic-ref --short HEAD | cut -d- -f 1 | cut -d/ -f 2 | xargs)
+		if [ -n $BRANCH_NAME ] && ! [[ $BRANCH_NAME == master ]] && ! [[ $BRANCH_NAME == develop ]]
+		then
+			sed -i.bak -e "1s/^/[$BRANCH_NAME] /" $1
+		fi' >    .git/hooks/commit-msg
+		chmod +x .git/hooks/commit-msg
+		ti init
 		;;
 	*)
+		ti $@
 		;;
 esac
