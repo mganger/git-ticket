@@ -10,6 +10,7 @@ exit = sys.exit
 from git import Repo
 import os
 import json
+from tabulate import tabulate
 join = os.path.join
 
 repo = Repo(os.getcwd())
@@ -47,7 +48,7 @@ def project():
 def project_branch():
 	return 'ticket-'+project()
 
-def checkout(this_repo=repo,name):
+def checkout(name,this_repo=repo):
 	b_current = this_repo.active_branch
 	repo.git.checkout(name)
 	return b_current
@@ -151,6 +152,12 @@ elif arg == 'new':
 
 elif arg == 'list':
 	branch = checkout(name=project_branch())
+
+	print "{:<8} {:<10} {:<10} {:<15} {:<15}  {}".format('id','hash','state','assignee','due','title')
+	print "-"*75
+
+	for i,tick in enumerate(get_tickets()):
+		print "{:<8} {:<10} {:<10} {:<15} {:<15}  {}".format(i,tick['hash'][:6],tick['state'],tick['assignee'],tick['due-date'],tick['title'])
 
 	#Make a tree of all open tickets
 	#	Show the hash as well as the number
