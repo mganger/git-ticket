@@ -113,7 +113,8 @@ if arg  == 'init':
 	#TODO add commit hook to folder (.git/hooks/commit-msg)
 
 elif arg == 'project':
-	pass
+	if param == None:
+		print 'git project <project-name>'
 	#Check for project branch
 	#Write the project to .git/current_project
 	open('.git/current_project','w').write(param.upper())
