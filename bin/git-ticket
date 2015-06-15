@@ -191,8 +191,9 @@ elif arg == 'list':
 	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format('id','hash','state','assignee','due','title')
 	print "-"*75
 
-	for i,tick in enumerate([x for x in get_tickets() if x['state'] in allowed]):
-		print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(i,tick['hash'][:6],tick['state'],tick['assignee'],tick['due-date'],tick['title'])
+	for i,tick in enumerate(get_tickets()):
+		if tick['state'] in allowed:
+			print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(i,tick['hash'][:6],tick['state'],tick['assignee'],tick['due-date'],tick['title'])
 
 	#Make a tree of all open tickets
 	#	Show the hash as well as the number
