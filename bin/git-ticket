@@ -70,7 +70,7 @@ def get_ticket(tickets,string):
 def print_ticket(ticket,id=''):
 	print_ticket_fields(id, hash=ticket['hash'], state=ticket['state'], assignee=ticket['assignee'], due=ticket['due-date'], title=ticket['title'])
 def print_ticket_fields(id, hash, state, assignee, due, title):
-	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(id,hash,state,assignee,due,title)
+	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(id,hash[:6],state,assignee,due,title)
 
 
 def mark_state(ticket, state, tickets):
