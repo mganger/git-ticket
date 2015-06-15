@@ -11,7 +11,7 @@ message_file = sys.argv[1]
 
 
 
-branch = repo.current_branch.name
+branch = repo.active_branch.name
 slash_split = branch.split('/')
 branch_type = slash_split[0].strip()
 
@@ -21,7 +21,7 @@ if branch_type in {'feature', 'hotfix', 'release', 'support'}:
 
 	assert len(dash_split)  > 1, "Branch is not named correctly"
 	project = dash_split[0].strip().upper()
-	sha     = dash_split[0].strip().lower()
+	sha     = dash_split[1].strip().lower()
 
 	message = ''
 	with open(message_file, 'r') as file: message = file.read()
