@@ -465,7 +465,7 @@
     "due-date": null,
     "hash": "51d3843783436bcf7deb64cf5133287503d6d44ba14557515431d778247391df",
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Test ticket",
     "type": "feature"
   }
