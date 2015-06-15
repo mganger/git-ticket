@@ -455,7 +455,7 @@
     "due-date": null,
     "hash": "4e2eb6014f03536fe1c895f95ed8a50f10030d450c430e30df107a9defe26494",
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Make json print on multiple lines",
     "type": "feature"
   },
