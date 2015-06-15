@@ -110,6 +110,8 @@ if arg  == 'init':
 	if not os.path.exists('.git/.ticket'):
 		open('.git/.ticket', 'a').close()
 
+	os.system('git-ticket project {}'.format(project))
+
 	#TODO add commit hook to folder (.git/hooks/commit-msg)
 
 elif arg == 'project':
