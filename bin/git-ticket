@@ -240,7 +240,7 @@ elif arg == 'finish':
 
 	os.system("git flow {} finish {}-{}-{}".format(type_name,project(),short_hash,title))
 
-elif arg == 'closed' or arg == 'invalid':
+elif arg in {'closed', 'invalid', 'open', 'in-progress'}:
 	branch = checkout(project_branch())
 	tickets = get_tickets()
 	ticket  = get_ticket(tickets, param)
