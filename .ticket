@@ -345,7 +345,7 @@
     "due-date": null,
     "hash": "57f04b3f70a10ed18aa4d995ac8a62b8159dda34ec2e194b4793577801ce4c96",
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Write readme with dependencies",
     "type": "feature"
   },
