@@ -175,7 +175,7 @@ elif arg == 'new':
 	write_tickets(ticks)
 
 	repo.index.add(['.ticket'])
-	repo.index.commit('Added [{}-{}]'.format(project, info['hash'][:6]))
+	repo.index.commit('Added [{}-{}]'.format(project(), info['hash'][:6]))
 	checkout(name=branch)
 
 
