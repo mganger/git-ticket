@@ -1,5 +1,6 @@
 #!/usr/bin/python2
 
+import re
 import yaml
 from hashlib import sha256
 import tempfile
@@ -10,32 +11,27 @@ exit = sys.exit
 from git import Repo
 import os
 import json
-from tabulate import tabulate
 join = os.path.join
 
 repo = Repo(os.getcwd())
 
 commit_msg=\
-"""title: 
-assignee: 
+"""title:      
+type:       
+assignee:   
 start-date: 
-due-date: 
-type: 
-state: 
-comments: 
+due-date:   
+state:      
+comments:   
 """
 
-arg   = ''
-param = ''
+arg   = None
+param = None
 try:
 	arg   = args[0]
 	param = args[1]
 except: pass
 
-def get_ticket(string):
-	pass
-	#check for ticket
-	#return fully qualified hash
 def get_tickets():
 	with open('.ticket') as file:
 		return json.load(file)
@@ -47,6 +43,36 @@ def project():
 		return file.read().strip()
 def project_branch():
 	return 'ticket-'+project()
+def add_file(*names):
+	repo.index.add(names)
+def commit(string):
+	repo.index.commit(string)
+
+def get_ticket(tickets,string):
+	if param == '':
+		print 'Enter a ticket id or hash'
+		exit(4)
+
+	#if its an id:
+	try:
+		return tickets[int(param)]
+		
+	except:
+		#try to find it by hash
+		for tick in tickets:
+			if param in tick['hash']:
+				return tick
+
+	if ticket == None:
+		print "Id or hash not valid"
+		exit(3)
+
+def mark_state(ticket, state, tickets):
+	index = tickets.index(ticket)
+	tickets[index]['state'] = state
+	write_tickets(tickets)
+	add_file('.ticket')
+
 
 def checkout(name,this_repo=repo):
 	b_current = this_repo.active_branch
@@ -153,11 +179,17 @@ elif arg == 'new':
 elif arg == 'list':
 	branch = checkout(name=project_branch())
 
-	print "{:<8} {:<10} {:<10} {:<15} {:<15}  {}".format('id','hash','state','assignee','due','title')
+	allowed = ['open', 'in-progress']
+
+	if param is not None:
+		allowed = args[1:]
+
+
+	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format('id','hash','state','assignee','due','title')
 	print "-"*75
 
-	for i,tick in enumerate(get_tickets()):
-		print "{:<8} {:<10} {:<10} {:<15} {:<15}  {}".format(i,tick['hash'][:6],tick['state'],tick['assignee'],tick['due-date'],tick['title'])
+	for i,tick in enumerate([x for x in get_tickets() if x['state'] in allowed]):
+		print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(i,tick['hash'][:6],tick['state'],tick['assignee'],tick['due-date'],tick['title'])
 
 	#Make a tree of all open tickets
 	#	Show the hash as well as the number
@@ -170,21 +202,49 @@ elif arg == 'list':
 	checkout(name=branch)
 
 elif arg == 'start':
-	pass
-	#Check for ticket; if it is a super, and there are open/in-progress tickets below it, close
+	#Check for ticket
+	branch = checkout(project_branch())
+
+	tickets = get_tickets()
+	ticket  = get_ticket(tickets,param)
+
+
 	#Create a new branch like: git-flow feature start PROJECT-HASH-title-in-lowercase
+	short_hash = str(ticket['hash'][:6])
+	type_name  = str(ticket['type'])
+	title      = re.sub(r'\s+','-',str(ticket['title']).lower())
+
+
 	#set current ticket to in-progress
+	mark_state(ticket, 'in-progress', tickets)
+	commit('Started branch for [{}]'.format(ticket['hash'][:6]))
+
+	os.system("git flow {} start {}-{}-{}".format(type_name,project(),short_hash,title))
 
 elif arg == 'finish':
-	pass
-	#check for ticket using the branch name
-	#run git-flow feature finish
-	#mark ticket as closed
+	branch = checkout(project_branch())
+	tickets = get_tickets()
+	ticket  = get_ticket(tickets,param)
 
-elif arg == 'state':
-	pass
-	#check for ticket
-	#allow open, closed, invalid, hold, in-progress
+	short_hash = str(ticket['hash'][:6])
+	type_name  = str(ticket['type'])
+	title      = re.sub(r'\s+','-',str(ticket['title']).lower())
+
+	#mark ticket as closed
+	mark_state(ticket, 'closed', tickets)
+	commit('Finished branch for [{}]'.format(ticket['hash'][:6]))
+
+	os.system("git flow {} finish {}-{}-{}".format(type_name,project(),short_hash,title))
+
+elif arg == 'closed' or arg == 'invalid':
+	branch = checkout(project_branch())
+	tickets = get_tickets()
+	ticket  = get_ticket(tickets, param)
+
+	mark_state(ticket, arg, tickets)
+	commit('Marked [{}] as {}'.format(ticket['hash'][:6], arg))
+	checkout(branch)
+
 else:
 	pass
 	#show default message
