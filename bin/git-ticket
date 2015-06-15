@@ -67,6 +67,12 @@ def get_ticket(tickets,string):
 		print "Id or hash not valid"
 		exit(3)
 
+def print_ticket(ticket):
+	print_ticket_fields(id='', hash=ticket['hash'], state=ticket['state'], assignee=ticket['assignee'], due=ticket['due'], title=ticket['title'])
+def print_ticket_fields(id, hash, state, assignee, due, title):
+	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(id,hash,state,assignee,due,title)
+
+
 def mark_state(ticket, state, tickets):
 	index = tickets.index(ticket)
 	tickets[index]['state'] = state
@@ -178,6 +184,9 @@ elif arg == 'new':
 	repo.index.commit('Added [{}-{}]'.format(project(), info['hash'][:6]))
 	checkout(name=branch)
 
+	#show the ticket
+	print_ticket(ticket)
+
 
 elif arg == 'list':
 	branch = checkout(name=project_branch())
@@ -188,12 +197,12 @@ elif arg == 'list':
 		allowed = args[1:]
 
 
-	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format('id','hash','state','assignee','due','title')
+	print_ticket_fields('id','hash','state','assignee','due','title')
 	print "-"*75
 
 	for i,tick in enumerate(get_tickets()):
 		if tick['state'] in allowed:
-			print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(i,tick['hash'][:6],tick['state'],tick['assignee'],tick['due-date'],tick['title'])
+			print_ticket(tick)
 
 	#Make a tree of all open tickets
 	#	Show the hash as well as the number
