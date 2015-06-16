@@ -558,5 +558,15 @@
     "state": "open",
     "title": "Separate needs vs part-of",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "951d5eb2d06f56acd01c8c0ad97e3cf3f06849d1dceec078d348a568a1b50c82",
+    "start-date": null,
+    "state": "open",
+    "title": "Make it easier to correspond ticket id and title",
+    "type": "feature"
   }
 ]
