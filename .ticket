@@ -145,7 +145,7 @@
     "due-date": null,
     "hash": "f44407bb834da45f864da626effc3ad8e2a7d4f85ea4a3dbccf272b939f41201",
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Add show command",
     "type": "feature"
   },
