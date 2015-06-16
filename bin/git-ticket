@@ -280,9 +280,22 @@ elif arg in {'closed', 'invalid', 'open', 'in-progress'}:
 	push()
 
 elif arg == 'show':
+	tickets = get_tickets()
 	if param is None:
 		#show current ticket
-	#otherwise get ticket
+		try:
+			branch_name = current_repo.active_branch.name
+			match = re.search(r'\w+/\w+-(\w+)', branch_name)
+			ticket = get_ticket(tickets, match.group(1))
+			print_ticket_header()
+			print_ticket(ticket)
+		except:
+			print 'Not on a ticket branch'
+	else:
+		ticket = get_ticket(tickets, param)
+		print_ticket_header()
+		print_ticket(ticket)
+	
 
 else:
 	pass
