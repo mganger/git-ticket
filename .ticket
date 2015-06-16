@@ -488,5 +488,15 @@
     "state": "open",
     "title": "Another test",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "75254dd4f4e2a17f1389aaeeac853ddecbc681bcad432a3ff0dd76a8e5cde9e8",
+    "start-date": null,
+    "state": "open",
+    "title": "Fix new ticket display",
+    "type": "feature"
   }
 ]
