@@ -478,5 +478,15 @@
     "state": "open",
     "title": "Allow addressing ticket by title",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "626cd0f08ae3c3b5bf48096c5f4a7860ec666ec88941315627735ade9acaccba",
+    "start-date": null,
+    "state": "open",
+    "title": "Another test",
+    "type": "feature"
   }
 ]
