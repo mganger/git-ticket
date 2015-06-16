@@ -538,5 +538,15 @@
     "state": "open",
     "title": "Have Show command give more info",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "follow similar format to linux command cut",
+    "due-date": null,
+    "hash": "e9a5ac56fd2d58355590eb1537e0d3156a289bc981dac5c0d8c83757292e168b",
+    "start-date": null,
+    "state": "open",
+    "title": "Allow range or list in show command",
+    "type": "feature"
   }
 ]
