@@ -618,5 +618,15 @@
     "state": "open",
     "title": "Speed up by reusing tmp dir",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "Tickets are really hard to find in the list view",
+    "due-date": null,
+    "hash": "335afb54f7d1c08e2dfb5d3e35722479e74a286d18a0a88efbd9a3db5c852bc7",
+    "start-date": null,
+    "state": "open",
+    "title": "Add search feature",
+    "type": "feature"
   }
 ]
