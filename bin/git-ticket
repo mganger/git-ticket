@@ -279,6 +279,11 @@ elif arg in {'closed', 'invalid', 'open', 'in-progress'}:
 	commit('Marked [{}] as {}'.format(ticket['hash'][:6], arg))
 	push()
 
+elif arg == 'show':
+	if param is None:
+		#show current ticket
+	#otherwise get ticket
+
 else:
 	pass
 	#show default message
