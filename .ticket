@@ -598,5 +598,15 @@
     "state": "open",
     "title": "Add reason field",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "83125550ec08baf0247bc0af1693af1b1ad2c73e9d94bc5f64b75b0df67373a8",
+    "start-date": null,
+    "state": "open",
+    "title": "Allow code references",
+    "type": "feature"
   }
 ]
