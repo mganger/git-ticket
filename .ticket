@@ -528,5 +528,15 @@
     "state": "open",
     "title": "Create nice python docs",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "435dff3dd08bb94f83df2b3415ba59b051c219fcfc6b60e4ce7aa17eeb487a2c",
+    "start-date": null,
+    "state": "open",
+    "title": "Have Show command give more info",
+    "type": "feature"
   }
 ]
