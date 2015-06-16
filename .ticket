@@ -155,7 +155,7 @@
     "due-date": null,
     "hash": "af1efcaea8b562cf9a28090b9b35a54fc6a6f07d0ffdfe8664a68c2a00c7c845",
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Make into package",
     "type": "feature"
   },
