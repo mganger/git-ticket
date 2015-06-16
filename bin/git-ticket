@@ -99,18 +99,18 @@ def commit(string):
 	repo.index.commit(string)
 
 def get_ticket(tickets,string):
-	if param == '':
+	if string == '':
 		print 'Enter a ticket id or hash'
 		exit(4)
 
 	#if its an id:
 	try:
-		return tickets[int(param)]
+		return tickets[int(string)]
 		
 	except:
 		#try to find it by hash
 		for tick in tickets:
-			if param in tick['hash']:
+			if string in tick['hash']:
 				return tick
 
 	if ticket == None:
