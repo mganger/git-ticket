@@ -117,8 +117,8 @@ def get_ticket(tickets,string):
 		print "Id or hash not valid"
 		exit(3)
 
-def print_ticket(ticket,id=''):
-	print_ticket_fields(id=get_tickets().index(ticket), hash=ticket['hash'], state=ticket['state'], assignee=ticket['assignee'], due=ticket['due-date'], title=ticket['title'])
+def print_ticket(ticket,id=None):
+	print_ticket_fields(id=(id if id else get_tickets().index(ticket)), hash=ticket['hash'], state=ticket['state'], assignee=ticket['assignee'], due=ticket['due-date'], title=ticket['title'])
 def print_ticket_fields(id, hash, state, assignee, due, title):
 	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(id,hash[:6],state,assignee,due,title)
 
