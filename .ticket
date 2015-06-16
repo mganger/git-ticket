@@ -608,5 +608,15 @@
     "state": "open",
     "title": "Allow code references",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "When cloning the ticket branch, check to see if an old tmp dir still exists. Might require manually making a tmp dir",
+    "due-date": null,
+    "hash": "e28ed9a634d55c9de6685dd82cb3208f956cc136ad4e50867e03e49f01e47889",
+    "start-date": null,
+    "state": "open",
+    "title": "Speed up by reusing tmp dir",
+    "type": "feature"
   }
 ]
