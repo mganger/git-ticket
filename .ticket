@@ -508,5 +508,15 @@
     "state": "open",
     "title": "Save ticket creation date",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "It would be nice to have something like git ticket <id> trumps <id> or git ticket <id> needs <id>. Just use regular expressions to parse it",
+    "due-date": null,
+    "hash": "63c195a4e28d522e4554e27d44caef742530e7a39ad5fb859e9967369915cffa",
+    "start-date": null,
+    "state": "open",
+    "title": "Streamline command interface",
+    "type": "feature"
   }
 ]
