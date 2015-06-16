@@ -192,6 +192,7 @@ elif arg == 'new':
 	checkout(name=branch)
 
 	#show the ticket
+	print_ticket_header()
 	print_ticket(ticket)
 
 
