@@ -35,7 +35,7 @@
     "due-date": null,
     "hash": "1a1bf80b7c2e79117936e7fb9b9e95959926e87a9b4cad9ff7c276f64cecc1ed",
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Stash changes",
     "type": "feature"
   },
