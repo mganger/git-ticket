@@ -211,7 +211,7 @@ elif arg == 'new':
 
 	#show the ticket
 	print_ticket_header()
-	print_ticket(ticket)
+	print_ticket(info)
 
 
 elif arg == 'list':
