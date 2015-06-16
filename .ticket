@@ -585,7 +585,7 @@
     "due-date": null,
     "hash": "164ce6b67705b2218beb9192ed3a3211929dd6dad70c9443b00389fd81d6ff5e",
     "start-date": null,
-    "state": "see ticgit",
+    "state": "open",
     "title": "Add sync command",
     "type": "feature"
   }
