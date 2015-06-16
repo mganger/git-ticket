@@ -548,5 +548,15 @@
     "state": "open",
     "title": "Allow range or list in show command",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "aea35dd7731c1393e70f8bfb21168e9ebba549a97ce01d757b0926c4f2ba6d32",
+    "start-date": null,
+    "state": "open",
+    "title": "Separate needs vs part-of",
+    "type": "feature"
   }
 ]
