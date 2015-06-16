@@ -568,5 +568,15 @@
     "state": "open",
     "title": "Make it easier to correspond ticket id and title",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "ea728baad3507c43d14e9f76ef86f665accc7484120c5f1eab56a930aa597b4c",
+    "start-date": null,
+    "state": "open",
+    "title": "Test ticket 2",
+    "type": "feature"
   }
 ]
