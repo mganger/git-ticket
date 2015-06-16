@@ -55,7 +55,7 @@
     "due-date": null,
     "hash": "7a818b6c4c27973f7bf6d03c1a6f9f1e75b4f229114022d0dd9677ae21f28280",
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Allow finishing without index",
     "type": "feature"
   },
