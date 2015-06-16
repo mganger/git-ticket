@@ -72,6 +72,13 @@ def print_ticket(ticket,id=''):
 def print_ticket_fields(id, hash, state, assignee, due, title):
 	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(id,hash[:6],state,assignee,due,title)
 
+def print_ticket_header():
+	print_ticket_fields('id','hash','state','assignee','due-date','title')
+	print "-"*75
+
+def print_ticket_list(tickets):
+	pass
+
 
 def mark_state(ticket, state, tickets):
 	index = tickets.index(ticket)
@@ -197,8 +204,7 @@ elif arg == 'list':
 		allowed = args[1:]
 
 
-	print_ticket_fields('id','hash','state','assignee','due-date','title')
-	print "-"*75
+	print_ticket_header()
 
 	for i,tick in enumerate(get_tickets()):
 		if tick['state'] in allowed:
