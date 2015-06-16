@@ -518,5 +518,15 @@
     "state": "open",
     "title": "Streamline command interface",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "83c01703fd11c38fdad7d857c8cc24b012528b3b256768fb97c27ad33da2c449",
+    "start-date": null,
+    "state": "open",
+    "title": "Create nice python docs",
+    "type": "feature"
   }
 ]
