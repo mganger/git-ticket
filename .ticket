@@ -588,5 +588,15 @@
     "state": "open",
     "title": "Add sync command",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "Better than using the comment field",
+    "due-date": null,
+    "hash": "bc8bccece4cd63c11835d2bf3efe535e0aac5b004d44af63119f8550174ca18b",
+    "start-date": null,
+    "state": "open",
+    "title": "Add reason field",
+    "type": "feature"
   }
 ]
