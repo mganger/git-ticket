@@ -298,5 +298,4 @@ elif arg == 'show':
 	
 
 else:
-	pass
-	#show default message
+	print "git-ticket"
