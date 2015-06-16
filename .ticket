@@ -435,7 +435,7 @@
     "due-date": null,
     "hash": "147022af2da3940f1089a7099b049d2d0b4bc462393421989685ece9ed36d9bb",
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Failure leaves in ticket branch",
     "type": "feature"
   },
