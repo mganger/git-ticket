@@ -278,6 +278,7 @@ elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}:
 elif gt.command == 'show':
 	tickets = get_tickets()
 	try:
+		if not gt.subject: raise Exception
 		ticks_to_print = [get_ticket(tickets, sub) for sub in gt.subject]
 		print_ticket_header()
 		for ticket in ticks_to_print: print_ticket(ticket)
