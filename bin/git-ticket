@@ -5,30 +5,20 @@ import yaml
 from hashlib import sha256
 import tempfile
 import traceback
-import sys
-args = sys.argv[1:]
-exit = sys.exit
-from git import Repo
 import os
 import json
+import gitticket as gt
 join = os.path.join
 
-current_repo = Repo(os.getcwd())
 
-arg   = None
-param = None
-try:
-	arg   = args[0]
-	param = args[1]
-except: pass
 
-if arg  == 'init':
-	repo = current_repo
+if gt.command  == 'init':
+	repo = gt.active_repo
 	#Use project name
-	assert param != '', 'git-ticket init <project-name>'
+	assert gt.subject[0] != '', 'git-ticket init <project-name>'
 
 	#Create new branch with name ticket-PROJECT
-	project = param.upper()
+	project = gt.subject[0].upper()
 	print project
 
 	#SHA is empty commit
@@ -70,7 +60,7 @@ def project_branch():
 	return 'ticket-'+project()
 
 cloning_dir = tempfile.mkdtemp()
-repo = current_repo.clone(cloning_dir, b=project_branch())
+repo = gt.active_repo.clone(cloning_dir, b=project_branch())
 
 
 commit_msg=\
@@ -146,14 +136,14 @@ def push():
 	repo.git.push()
 
 
-if arg == 'project':
-	if param == None:
+if gt.command == 'project':
+	if gt.subject[0] == None:
 		print 'git project <project-name>'
 	#Check for project branch
 	#Write the project to .git/current_project
-	open_in_dir('.git/current_project','w').write(param.upper())
+	open_in_dir('.git/current_project','w').write(gt.subject[0].upper())
 
-elif arg == 'new':
+elif gt.command == 'new':
 	#Check that there is a project in the .git folder
 
 	#Get a tmp file and do the whole git commit thing
@@ -214,18 +204,15 @@ elif arg == 'new':
 	print_ticket(info)
 
 
-elif arg == 'list':
+elif gt.command == 'list':
 
-	allowed = ['open', 'in-progress']
-
-	if param is not None:
-		allowed = args[1:]
-
+	subs = gt.subject
+	allowed = subs[:1] if len(subs) == 1 else subs if subs and set(gt.verb) == {'and'} else ['open', 'in-progress']
 
 	print_ticket_header()
 
 	for i,tick in enumerate(get_tickets()):
-		if tick['state'] in allowed:
+		if tick['state'] in allowed or 'all' in allowed:
 			print_ticket(tick,i)
 
 	#Make a tree of all open tickets
@@ -237,10 +224,10 @@ elif arg == 'list':
 	#invalid:
 	#in-progress
 
-elif arg == 'start':
+elif gt.command == 'start':
 	#Check for ticket
 	tickets = get_tickets()
-	ticket  = get_ticket(tickets,param)
+	ticket  = get_ticket(tickets,gt.subject[0])
 
 
 	#Create a new branch like: git-flow feature start PROJECT-HASH-title-in-lowercase
@@ -256,7 +243,7 @@ elif arg == 'start':
 
 	os.system("git flow {} start {}-{}-{}".format(type_name,project(),short_hash,title))
 
-elif arg == 'finish':
+elif gt.command == 'finish':
 	tickets = get_tickets()
 	ticket  = get_ticket(tickets,param)
 
@@ -271,20 +258,20 @@ elif arg == 'finish':
 
 	os.system("git flow {} finish {}-{}-{}".format(type_name,project(),short_hash,title))
 
-elif arg in {'closed', 'invalid', 'open', 'in-progress'}:
+elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}:
 	tickets = get_tickets()
 	ticket  = get_ticket(tickets, param)
 
-	mark_state(ticket, arg, tickets)
-	commit('Marked [{}] as {}'.format(ticket['hash'][:6], arg))
+	mark_state(ticket, gt.command, tickets)
+	commit('Marked [{}] as {}'.format(ticket['hash'][:6], gt.command))
 	push()
 
-elif arg == 'show':
+elif gt.command == 'show':
 	tickets = get_tickets()
 	if param is None:
 		#show current ticket
 		try:
-			branch_name = current_repo.active_branch.name
+			branch_name = gt.active_repo.active_branch.name
 			match = re.search(r'\w+/\w+-(\w+)', branch_name)
 			ticket = get_ticket(tickets, match.group(1))
 			print_ticket_header()
