@@ -137,12 +137,14 @@ def push():
 
 if gt.command == 'project':
 	try:
+		#Find all projects
 		project = gt.subject[0].upper()
 		try:
+			if project not in gt.project_branches: raise Exception
 			with open('.git/current_project','w') as file: file.write(project)
 			print 'Set project to {}'.format(project)
 		except:
-			print 'Could not open project {}'.format(project)
+			print 'Could not open project {}. Has it been initialized?'.format(project)
 	except:
 		try:
 			with open('.git/current_project') as file:

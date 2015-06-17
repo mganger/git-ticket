@@ -31,3 +31,9 @@ try:
 except: pass
 
 current_branch = active_repo.active_branch.name
+
+
+import subprocess
+import re
+
+project_branches = [b for b in subprocess.check_output(["git","branch"]).split() if re.match("ticket-[A-Z]+", b)]
