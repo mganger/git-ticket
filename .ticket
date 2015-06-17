@@ -255,7 +255,7 @@
     "due-date": null,
     "hash": "01b2e71f16bd58812df1974d378c62adc320df64179705c146a3de6d226da822",
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Modularize code-base",
     "type": "feature"
   },
