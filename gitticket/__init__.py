@@ -29,3 +29,5 @@ try:
 	subject = args[1::2]
 	verb    = args[2::2]
 except: pass
+
+current_branch = active_repo.active_branch.name

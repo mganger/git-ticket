@@ -4,7 +4,7 @@ import re
 import yaml
 from hashlib import sha256
 import tempfile
-import traceback
+import subprocess
 import os
 import json
 import gitticket as gt
@@ -19,35 +19,34 @@ if gt.command  == 'init':
 
 	#Create new branch with name ticket-PROJECT
 	project = gt.subject[0].upper()
-	print project
 
 	#SHA is empty commit
 	#TODO assert project doesn't already exist
-	try:
-		past_branch = repo.head.reference
-		os.system("git symbolic-ref HEAD refs/heads/ticket-{}".format(project))
-		os.system("git clean -fdx")
-		os.system("git reset")
-		open_in_dir(project, 'w').write(project+'\n')
-		with open_in_dir('.ticket', 'w') as file:
-			yaml.dump([],file)
-		os.system("git add {} .ticket".format(project))
-		os.system('git commit -m "Inital commit of ticket-{} branch"'.format(project))
-	except:
-		print traceback.format_exc()
-	finally:
-		repo.head.reference = past_branch
-		repo.git.reset()
-		
+	with open(os.devnull, 'wb') as devnull:
+		try:
+			past_branch = gt.current_branch
 
-	#Touch '.ticket' and do the initial commit
-	if not os.path.exists('.git/.ticket'):
-		open('.git/.ticket', 'a').close()
+			subprocess.check_call(["git checkout --orphan ticket-{}"].format(project),stdout=devnull,stderr=subprocess.STDOUT)
+			os.system("git clean -fdx")
+			os.system("git reset")
 
-	os.system('git-ticket project {}'.format(project))
+			open(project, 'w').write(project+'\n').close()
+			with open('.ticket', 'w') as file:
+				json.dump([],file)
 
-	#TODO add commit hook to folder (.git/hooks/commit-msg)
-	exit(0)
+			os.system("git add {} .ticket".format(project))
+			os.system('git commit -m "Inital commit of ticket-{} branch"'.format(project))
+			os.system('git-ticket project {}'.format(project))
+
+			print "Initialized project {}".format(project)
+
+		except:
+			print "Couldn't initialize branch. Does it already exist?"
+		finally:
+			try: subprocess.check_call(["git checkout {}".format(past_branch)], stdout=devnull)
+			except: pass
+			#TODO add commit hook to folder (.git/hooks/commit-msg)
+			gt.exit(0)
 
 def project():
 	try:
