@@ -143,8 +143,6 @@ if gt.command == 'project':
 	open_in_dir('.git/current_project','w').write(gt.subject[0].upper())
 
 elif gt.command == 'new':
-	#Check that there is a project in the .git folder
-
 	#Get a tmp file and do the whole git commit thing
 	#Parse the ticket for (use yaml):
 	#	title
@@ -215,6 +213,7 @@ elif gt.command == 'list':
 			print_ticket(tick,i)
 
 	#Make a tree of all open tickets
+	#Make this deplist
 	#	Show the hash as well as the number
 	#all:
 	#	show all tickets (open, closed, invalid, hold, in-progress)
