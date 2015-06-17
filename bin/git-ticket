@@ -146,15 +146,21 @@ def push():
 	repo.git.push()
 
 
-if arg == 'project':
-	if param == None:
-		print 'git project <project-name>'
-	#Check for project branch
-	#Write the project to .git/current_project
-	open_in_dir('.git/current_project','w').write(param.upper())
-
-elif arg == 'new':
-	#Check that there is a project in the .git folder
+if gt.command == 'project':
+	try:
+		project = gt.subject[0].upper()
+		try:
+			with open('.git/current_project','w') as file: file.write(project)
+			print 'Set project to {}'.format(project)
+		except:
+			print 'Could not open project {}'.format(project)
+	except:
+		try:
+			with open('.git/current_project') as file:
+				project = file.read().strip()
+				print 'Current project is {}'.format(project)
+		except:
+			print 'There is no project name. Set with git project <name>'
 
 	#Get a tmp file and do the whole git commit thing
 	#Parse the ticket for (use yaml):
