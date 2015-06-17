@@ -665,7 +665,7 @@
     "due-date": null,
     "hash": "52d5febb338a71b011d0879d4abb86a5404fa6c7b6c784161d7e3c13150b5476",
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Allow stashing of changes on new feature start",
     "type": "feature"
   }
