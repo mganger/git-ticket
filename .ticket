@@ -658,5 +658,15 @@
     "state": "invalid",
     "title": "Dummy ticket",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "52d5febb338a71b011d0879d4abb86a5404fa6c7b6c784161d7e3c13150b5476",
+    "start-date": null,
+    "state": "open",
+    "title": "Allow stashing of changes on new feature start",
+    "type": "feature"
   }
 ]
