@@ -648,5 +648,15 @@
     "state": "closed",
     "title": "zeroth project not showing up in show",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "6c1af7dc391f2f18c7d5bed3947b3a00b501a5822eda6440b697d8dd47ed0c22",
+    "start-date": null,
+    "state": "open",
+    "title": "Dummy ticket",
+    "type": "feature"
   }
 ]
