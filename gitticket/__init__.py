@@ -6,6 +6,8 @@ active_repo = Repo(os.getcwd())
 
 import list
 import start
+import state
+import show
 
 
 import sys
