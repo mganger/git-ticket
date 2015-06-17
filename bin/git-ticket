@@ -8,7 +8,6 @@ import subprocess
 import os
 import json
 import gitticket as gt
-join = os.path.join
 
 
 
@@ -48,99 +47,13 @@ if gt.command  == 'init':
 			#TODO add commit hook to folder (.git/hooks/commit-msg)
 			gt.exit(0)
 
-def project():
-	try:
-		with open('.git/current_project') as file:
-			return file.read().strip()
-	except:
-		print 'Project not initialized'
-
-def project_branch():
-	return 'ticket-'+project()
-
-cloning_dir = tempfile.mkdtemp()
-repo = gt.active_repo.clone(cloning_dir, b=project_branch())
-
-
-commit_msg=\
-"""title:      
-type:       
-assignee:   
-start-date: 
-due-date:   
-state:      
-comments:   
-"""
-
-
-def open_in_dir(filename, args = 'r'):
-	return open(join(repo.working_tree_dir+'/'+filename), args)
-
-def get_tickets():
-	with open_in_dir('.ticket') as file:
-		return json.load(file)
-def write_tickets(obj):
-	with open_in_dir('.ticket','w') as file:
-		json.dump(obj,file, sort_keys=True, indent=2, separators=(',', ': '))
-def add_file(*names):
-	repo.index.add(names)
-def commit(string):
-	repo.index.commit(string)
-
-def get_ticket(tickets,string):
-	if string == '':
-		print 'Enter a ticket id or hash'
-		exit(4)
-
-	#if its an id:
-	try:
-		return tickets[int(string)]
-		
-	except:
-		#try to find it by hash
-		for tick in tickets:
-			if string in tick['hash']:
-				return tick
-
-	if ticket == None:
-		print "Id or hash not valid"
-		exit(3)
-
-def print_ticket(ticket,id=None):
-	print_ticket_fields(id=(id if id else get_tickets().index(ticket)), hash=ticket['hash'], state=ticket['state'], assignee=ticket['assignee'], due=ticket['due-date'], title=ticket['title'])
-def print_ticket_fields(id, hash, state, assignee, due, title):
-	print "{:<8} {:<10} {:<15} {:<15} {:<15}  {}".format(id,hash[:6],state,assignee,due,title)
-
-def print_ticket_header():
-	print_ticket_fields('id','hash','state','assignee','due-date','title')
-	print "-"*75
-
-def print_ticket_list(tickets):
-	pass
-
-
-def mark_state(ticket, state, tickets):
-	index = tickets.index(ticket)
-	tickets[index]['state'] = state
-	write_tickets(tickets)
-	add_file('.ticket')
-
-
-def checkout(name,this_repo=repo):
-	b_current = this_repo.active_branch
-	repo.git.checkout(name)
-	return b_current
-
-def push():
-	repo.git.push()
-
 
 if gt.command == 'project':
 	if gt.subject[0] == None:
 		print 'git project <project-name>'
 	#Check for project branch
 	#Write the project to .git/current_project
-	open_in_dir('.git/current_project','w').write(gt.subject[0].upper())
+	gt.open_in_dir('.git/current_project','w').write(gt.subject[0].upper())
 
 elif gt.command == 'new':
 	#Get a tmp file and do the whole git commit thing
@@ -154,7 +67,7 @@ elif gt.command == 'new':
 	#	comments
 	info = []
 	with tempfile.NamedTemporaryFile() as msg:
-		msg.write(commit_msg)
+		msg.write(gt.commit_msg)
 		msg.seek(0)
 		os.system("vim {}".format(msg.name))
 		msg.seek(0)
@@ -180,7 +93,7 @@ elif gt.command == 'new':
 	#Change branches
 
 	#Load current tickets from file
-	ticks = get_tickets()
+	ticks = gt.get_tickets()
 
 	for ticket in ticks:
 		 if ticket['hash'] == info['hash']:
@@ -190,15 +103,15 @@ elif gt.command == 'new':
 	ticks.append(info)
 
 	#Save the file to tickets directory
-	write_tickets(ticks)
+	gt.write_tickets(ticks)
 
 	repo.index.add(['.ticket'])
 	repo.index.commit('Added [{}-{}]'.format(project(), info['hash'][:6]))
-	push()
+	gt.push()
 
 	#show the ticket
-	print_ticket_header()
-	print_ticket(info)
+	gt.print_ticket_header()
+	gt.print_ticket(info)
 
 
 elif gt.command == 'list':
@@ -206,11 +119,11 @@ elif gt.command == 'list':
 	subs = gt.subject
 	allowed = subs[:1] if len(subs) == 1 else subs if subs and set(gt.verb) == {'and'} else ['open', 'in-progress']
 
-	print_ticket_header()
+	gt.print_ticket_header()
 
-	for i,tick in enumerate(get_tickets()):
+	for i,tick in enumerate(gt.get_tickets()):
 		if tick['state'] in allowed or 'all' in allowed:
-			print_ticket(tick,i)
+			gt.print_ticket(tick,i)
 
 	#Make a tree of all open tickets
 	#Make this deplist
@@ -225,8 +138,8 @@ elif gt.command == 'list':
 elif gt.command == 'start':
 	try:
 		#Check for ticket
-		tickets = get_tickets()
-		ticket  = get_ticket(tickets,gt.subject[0])
+		tickets = gt.get_tickets()
+		ticket  = gt.get_ticket(tickets,gt.subject[0])
 
 		#Check to see if we want to stash changes and pop them later
 		stashed = None
@@ -243,9 +156,9 @@ elif gt.command == 'start':
 
 
 		#set current ticket to in-progress
-		mark_state(ticket, 'in-progress', tickets)
-		commit('Started branch for [{}]'.format(ticket['hash'][:6]))
-		push()
+		gt.mark_state(ticket, 'in-progress', tickets)
+		gt.commit('Started branch for [{}]'.format(ticket['hash'][:6]))
+		gt.push()
 
 		os.system("git flow {} start {}-{}-{}".format(type_name,project(),short_hash,title))
 
@@ -254,42 +167,42 @@ elif gt.command == 'start':
 		print "Cannot start ticket branch. If there are current changes, you may want to stash them first (or run git ticket start 3 stash)"
 
 elif gt.command == 'finish':
-	tickets = get_tickets()
-	ticket  = get_ticket(tickets,gt.subject[0])
+	tickets = gt.get_tickets()
+	ticket  = gt.get_ticket(tickets,gt.subject[0])
 
 	short_hash = str(ticket['hash'][:6])
 	type_name  = str(ticket['type'])
 	title      = re.sub(r'\s+','-',str(ticket['title']).lower())
 
 	#mark ticket as closed
-	mark_state(ticket, 'closed', tickets)
-	commit('Finished branch for [{}]'.format(ticket['hash'][:6]))
-	push()
+	gt.mark_state(ticket, 'closed', tickets)
+	gt.commit('Finished branch for [{}]'.format(ticket['hash'][:6]))
+	gt.push()
 
 	os.system("git flow {} finish {}-{}-{}".format(type_name,project(),short_hash,title))
 
 elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}:
-	tickets = get_tickets()
-	ticket  = get_ticket(tickets, gt.subject[0])
+	tickets = gt.get_tickets()
+	ticket  = gt.get_ticket(tickets, gt.subject[0])
 
-	mark_state(ticket, gt.command, tickets)
-	commit('Marked [{}] as {}'.format(ticket['hash'][:6], gt.command))
-	push()
+	gt.mark_state(ticket, gt.command, tickets)
+	gt.commit('Marked [{}] as {}'.format(ticket['hash'][:6], gt.command))
+	gt.push()
 
 elif gt.command == 'show':
-	tickets = get_tickets()
+	tickets = gt.get_tickets()
 	try:
-		ticks_to_print = [get_ticket(tickets, sub) for sub in gt.subject]
-		print_ticket_header()
-		for ticket in ticks_to_print: print_ticket(ticket)
+		ticks_to_print = [gt.get_ticket(tickets, sub) for sub in gt.subject]
+		gt.print_ticket_header()
+		for ticket in ticks_to_print: gt.print_ticket(ticket)
 	except:
 		#show current ticket
 		try:
 			branch_name = gt.active_repo.active_branch.name
 			match = re.search(r'\w+/\w+-(\w+)', branch_name)
-			ticket = get_ticket(tickets, match.group(1))
-			print_ticket_header()
-			print_ticket(ticket)
+			ticket = gt.get_ticket(tickets, match.group(1))
+			gt.print_ticket_header()
+			gt.print_ticket(ticket)
 		except:
 			print 'Not on a ticket branch'
 
