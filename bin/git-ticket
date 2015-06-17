@@ -1,16 +1,9 @@
 #!/usr/bin/python2
 
-import re
-import yaml
-from hashlib import sha256
-import tempfile
-import subprocess
-import os
-import json
 import gitticket as gt
 
 if gt.command  == 'init':     gt.init.init()
-elif gt.command == 'project': gt.project.project()
+elif gt.command == 'project': gt.proj.project()
 elif gt.command == 'new':     gt.new.new()
 elif gt.command == 'list':    gt.list.show_list()
 elif gt.command == 'start':   gt.start.start()
