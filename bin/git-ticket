@@ -245,7 +245,7 @@ elif gt.command == 'start':
 
 elif gt.command == 'finish':
 	tickets = get_tickets()
-	ticket  = get_ticket(tickets,param)
+	ticket  = get_ticket(tickets,gt.subject[0])
 
 	short_hash = str(ticket['hash'][:6])
 	type_name  = str(ticket['type'])
@@ -260,7 +260,7 @@ elif gt.command == 'finish':
 
 elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}:
 	tickets = get_tickets()
-	ticket  = get_ticket(tickets, param)
+	ticket  = get_ticket(tickets, gt.subject[0])
 
 	mark_state(ticket, gt.command, tickets)
 	commit('Marked [{}] as {}'.format(ticket['hash'][:6], gt.command))
@@ -268,7 +268,11 @@ elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}:
 
 elif gt.command == 'show':
 	tickets = get_tickets()
-	if param is None:
+	try:
+		ticks_to_print = [get_ticket(tickets, sub) for sub in gt.subject]
+		print_ticket_header()
+		for ticket in ticks_to_print: print_ticket(ticket)
+	except:
 		#show current ticket
 		try:
 			branch_name = gt.active_repo.active_branch.name
@@ -278,11 +282,6 @@ elif gt.command == 'show':
 			print_ticket(ticket)
 		except:
 			print 'Not on a ticket branch'
-	else:
-		ticket = get_ticket(tickets, param)
-		print_ticket_header()
-		print_ticket(ticket)
-	
 
 else:
 	print "git-ticket"
