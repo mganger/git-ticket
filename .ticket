@@ -5,7 +5,7 @@
     "due-date": null,
     "hash": "5229aba80c142d9514f5318ddd3742c180357f78df0fe88f0ed48b3e95a43d2b",
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Make project handling less fragile",
     "type": "feature"
   },
