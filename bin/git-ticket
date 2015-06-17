@@ -115,14 +115,7 @@ elif gt.command == 'new':
 elif gt.command == 'list':   gt.list.show_list()
 elif gt.command == 'start':  gt.start.start()
 elif gt.command == 'finish': gt.start.finish()
-
-elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}:
-	tickets = gt.get_tickets()
-	ticket  = gt.get_ticket(tickets, gt.subject[0])
-
-	gt.mark_state(ticket, gt.command, tickets)
-	gt.commit('Marked [{}] as {}'.format(ticket['hash'][:6], gt.command))
-	gt.push()
+elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}: gt.state.modify(gt.command)
 
 elif gt.command == 'show':
 	tickets = gt.get_tickets()
