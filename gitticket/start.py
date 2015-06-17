@@ -2,6 +2,7 @@
 import gitticket as gt
 import subprocess
 import os
+import re
 
 def start():
 	try:
