@@ -4,6 +4,8 @@ from git import Repo
 import os
 active_repo = Repo(os.getcwd())
 
+import list
+
 
 import sys
 args = sys.argv[1:]
