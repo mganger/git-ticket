@@ -223,23 +223,35 @@ elif gt.command == 'list':
 	#in-progress
 
 elif gt.command == 'start':
-	#Check for ticket
-	tickets = get_tickets()
-	ticket  = get_ticket(tickets,gt.subject[0])
+	try:
+		#Check for ticket
+		tickets = get_tickets()
+		ticket  = get_ticket(tickets,gt.subject[0])
+
+		#Check to see if we want to stash changes and pop them later
+		stashed = None
+		try:
+			stashed = gt.verb[0]
+			subprocess.check_call(['git','stash','save'])
+		except: pass
 
 
-	#Create a new branch like: git-flow feature start PROJECT-HASH-title-in-lowercase
-	short_hash = str(ticket['hash'][:6])
-	type_name  = str(ticket['type'])
-	title      = re.sub(r'\s+','-',str(ticket['title']).lower())
+		#Create a new branch like: git-flow feature start PROJECT-HASH-title-in-lowercase
+		short_hash = str(ticket['hash'][:6])
+		type_name  = str(ticket['type'])
+		title      = re.sub(r'\s+','-',str(ticket['title']).lower())
 
 
-	#set current ticket to in-progress
-	mark_state(ticket, 'in-progress', tickets)
-	commit('Started branch for [{}]'.format(ticket['hash'][:6]))
-	push()
+		#set current ticket to in-progress
+		mark_state(ticket, 'in-progress', tickets)
+		commit('Started branch for [{}]'.format(ticket['hash'][:6]))
+		push()
 
-	os.system("git flow {} start {}-{}-{}".format(type_name,project(),short_hash,title))
+		os.system("git flow {} start {}-{}-{}".format(type_name,project(),short_hash,title))
+
+		if stashed: subprocess.check_call(['git','stash','pop'])
+	except:
+		print "Cannot start ticket branch. If there are current changes, you may want to stash them first (or run git ticket start 3 stash)"
 
 elif gt.command == 'finish':
 	tickets = get_tickets()
