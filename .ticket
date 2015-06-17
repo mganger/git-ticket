@@ -638,5 +638,15 @@
     "state": "open",
     "title": "Move ticket message template out of python file",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "8aa4c3b801dd65a2113ddecc979eefb902a4b09f7c2a3bd6a545f84e11080372",
+    "start-date": null,
+    "state": "open",
+    "title": "zeroth project not showing up in show",
+    "type": "feature"
   }
 ]
