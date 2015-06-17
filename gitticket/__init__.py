@@ -8,6 +8,7 @@ import list
 import start
 import state
 import show
+import new
 
 
 import sys
