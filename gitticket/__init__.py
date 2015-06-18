@@ -83,24 +83,22 @@ def add_file(*names):
 def commit(string):
 	repo.index.commit(string)
 
-def get_ticket(tickets,string):
-	if string == '':
-		print 'Enter a ticket id or hash'
-		exit(4)
 
-	#if its an id:
+class NoId    (Exception): pass
+class NoTicket(Exception): pass
+
+def get_ticket(tickets,string):
 	try:
+		#try to find by id
+		if not string or string == '': raise NoId
 		return tickets[int(string)]
-		
-	except:
+
+	except IndexError:
 		#try to find it by hash
 		for tick in tickets:
 			if string in tick['hash']:
 				return tick
-
-	if string == None:
-		print "Id or hash not valid"
-		exit(3)
+		raise NoTicket
 
 def print_ticket(ticket,id=None):
 	print_ticket_fields(
