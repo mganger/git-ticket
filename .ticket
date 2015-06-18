@@ -688,5 +688,15 @@
     "state": "open",
     "title": "Add shell command",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "So that you can easily see all tickets",
+    "due-date": null,
+    "hash": "db791bc439acda23b182ecbdd38865adced7c2c4eea7d5df955c7d86c3f75fa1",
+    "start-date": null,
+    "state": "open",
+    "title": "Use pager like git when output fills screen",
+    "type": "feature"
   }
 ]
