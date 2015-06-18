@@ -678,5 +678,15 @@
     "state": "closed",
     "title": "Fix new command after migration",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "Shouldn't keep recloning the repo. Should let you write something like list all.",
+    "due-date": null,
+    "hash": "f643b5e55e4162ef1bdfbb8b8b2109c59e2987bf7380ba50fa55e8ec6bc6cf1c",
+    "start-date": null,
+    "state": "open",
+    "title": "Add shell command",
+    "type": "feature"
   }
 ]
