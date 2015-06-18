@@ -718,5 +718,15 @@
     "state": "open",
     "title": "This is a test",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "6da66e566bfd65041b8cdb5706578b92d0aac86c9b871486838076c313640492",
+    "start-date": null,
+    "state": "open",
+    "title": "Fix invalidate error",
+    "type": "feature"
   }
 ]
