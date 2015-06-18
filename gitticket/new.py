@@ -29,6 +29,7 @@ def new():
 	class Duplicate   (Exception): pass
 
 	try:
+		#Quick new feature
 		try:
 			type_name = gt.subject[0]
 			if type_name not in gt.branch_types: raise InvalidType(type_name)
