@@ -668,5 +668,15 @@
     "state": "closed",
     "title": "Allow stashing of changes on new feature start",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "adf95397cb40ef89f3fe0b56098991af6dc37f1c19529dbea76a8f4dd0e9fd88",
+    "start-date": null,
+    "state": "open",
+    "title": "Fix new command after migration",
+    "type": "feature"
   }
 ]
