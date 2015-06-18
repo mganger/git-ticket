@@ -29,6 +29,13 @@ def new():
 	class Duplicate   (Exception): pass
 
 	try:
+		try:
+			type_name = gt.subject[0]
+			if type_name not in gt.branch_types: raise InvalidType(type_name)
+			gt.commit_msg = '\n'.join( ''.join([s,type_name]) if 'type' in s else s for s in gt.commit_msg.split('\n'))
+		except InvalidType as e:
+			raise e
+			
 		info = get_from_temp(gt.commit_msg)
 	
 		#defaults

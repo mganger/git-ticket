@@ -53,6 +53,8 @@ import tempfile
 cloning_dir = tempfile.mkdtemp()
 repo = active_repo.clone(cloning_dir, b=project_branch())
 
+branch_types = {'feature', 'support', 'hotfix'}
+
 
 commit_msg=\
 """title:      
