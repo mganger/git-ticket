@@ -385,7 +385,7 @@
     "due-date": null,
     "hash": "d2cf6e55becf07c18d7c15f009a81929a48f7b552b7c658a4559afebe99d2cb3",
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Make listing not require commit",
     "type": "feature"
   },
