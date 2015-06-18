@@ -265,7 +265,7 @@
     "due-date": null,
     "hash": "c0256a91f4847c770f7c753b72b6063131fb268fb90f049db5a135c16907484d",
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Add new quick-add",
     "type": "feature"
   },
