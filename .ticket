@@ -555,7 +555,7 @@
     "due-date": null,
     "hash": "aea35dd7731c1393e70f8bfb21168e9ebba549a97ce01d757b0926c4f2ba6d32",
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Separate needs vs part-of",
     "type": "feature"
   },
