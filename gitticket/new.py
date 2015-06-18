@@ -1,4 +1,8 @@
 import gitticket as gt
+import tempfile
+import os
+import yaml
+from hashlib import sha256
 
 def new():
 	#Get a tmp file and do the whole git commit thing
@@ -50,8 +54,8 @@ def new():
 	#Save the file to tickets directory
 	gt.write_tickets(ticks)
 
-	repo.index.add(['.ticket'])
-	repo.index.commit('Added [{}-{}]'.format(project(), info['hash'][:6]))
+	gt.repo.index.add(['.ticket'])
+	gt.repo.index.commit('Added [{}-{}]'.format(gt.project(), info['hash'][:6]))
 	gt.push()
 
 	#show the ticket
