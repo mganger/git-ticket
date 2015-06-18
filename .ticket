@@ -515,7 +515,7 @@
     "due-date": null,
     "hash": "63c195a4e28d522e4554e27d44caef742530e7a39ad5fb859e9967369915cffa",
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Streamline command interface",
     "type": "feature"
   },
