@@ -93,7 +93,7 @@ def get_ticket(tickets,string):
 		if not string or string == '': raise NoId
 		return tickets[int(string)]
 
-	except IndexError:
+	except (IndexError, ValueError):
 		#try to find it by hash
 		for tick in tickets:
 			if string in tick['hash']:
