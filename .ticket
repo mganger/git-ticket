@@ -635,7 +635,7 @@
     "due-date": null,
     "hash": "4e7f09d928e62d833d34457770bd832f11313e9c07fd21b3ffbe0f5f607f89e0",
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Move ticket message template out of python file",
     "type": "feature"
   },
