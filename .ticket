@@ -715,7 +715,7 @@
     "due-date": null,
     "hash": "c7be1ed902fb8dd4d48997c6452f5d7e509fbcdbe2808b16bcf4edce4c07d14e",
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "This is a test",
     "type": "feature"
   },
