@@ -475,7 +475,7 @@
     "due-date": null,
     "hash": "597e7c08cfd0a2094750b9353dcc2e500ce9a3c8300610649e084fcee157c773",
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Allow addressing ticket by title",
     "type": "feature"
   },
