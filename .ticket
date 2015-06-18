@@ -698,5 +698,15 @@
     "state": "open",
     "title": "Use pager like git when output fills screen",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "95c22cba301716759df8c91dd15ff981c08fffbdd12a7f4c8370bf18482334d5",
+    "start-date": null,
+    "state": "open",
+    "title": "Move template ticket message to file",
+    "type": "feature"
   }
 ]
