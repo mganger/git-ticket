@@ -5,7 +5,7 @@ import os
 active_repo = Repo(os.getcwd())
 
 import init
-import list
+import lister
 import start
 import state
 import show
@@ -148,45 +148,44 @@ def checkout(name,this_repo=repo):
 def push():
 	repo.git.push()
 
-def first(l):
-	for i in l: return i
+def to_tuples(l):
+	return [(a,b) for a,b in l]
+
+def uniq(seq):
+    seen = set()
+    seen_add = seen.add
+    return [ x for x in seq if not (x in seen or seen_add(x))]
 
 class Circular(Exception): pass
 def check_circle(old_deps, new_dep):
-	first    = new_dep[0]
-	current  = first
-	deps     = old_deps.copy()
-	deps.append(new_dep)
+	first = new_dep[0]
+	deps = old_deps + [new_dep]
+	print deps
 	path = []
+
 	try:
+		current = first
 		while True:
-			next_dep = first(d[1] for d in deps if d[0] == current)
+			next_dep = [ b for a,b in deps if a == current ][0]
+			print next_dep
 			if next_dep in path:
 				raise Circular
 			path += [next_dep]
 			current = next_dep
 
-	except KeyError:
+	except IndexError:
 		pass
 
 def set_dependency(dependent, dependency):
-	mapped = [dependent['hash'], dependency['hash']]
+	mapped = (dependent['hash'], dependency['hash'])
 	try:
-		with open_in_dir('.dependencies') as file:
-			deps = json.load(file)
+		with open_in_dir('.dependencies') as f:
+			deps = to_tuples(json.load(f))
 			check_circle(deps,mapped)
-		with open_in_dir('.dependencies','w') as file:
-			deps.update(mapped)
-			json.dump(deps,file)
+		with open_in_dir('.dependencies','w') as f:
+			json.dump(uniq(deps+[mapped]),f)
 	except IOError:
-		with open_in_dir('.dependencies','w') as file:
-			json.dump([],file)
+		with open_in_dir('.dependencies','w') as f:
+			json.dump({},f,sort_keys=True, indent=2, separators=(',', ': '))
 		set_dependency(dependent,dependency)
-
-def tree_from_map(m):
-	class Node:
-		def __init__(self, subs):
-			self.subs = subs
-
-	ticks = defaultdict(list)
 
