@@ -4,6 +4,7 @@ from git import Repo
 import os
 active_repo = Repo(os.getcwd())
 
+import init
 import list
 import start
 import state
@@ -51,7 +52,10 @@ def project_branch():
 
 import tempfile
 cloning_dir = tempfile.mkdtemp()
-repo = active_repo.clone(cloning_dir, b=project_branch())
+
+repo = None
+try:    repo = active_repo.clone(cloning_dir, b=project_branch())
+except: pass
 
 
 commit_msg=\
@@ -67,7 +71,7 @@ comments:
 
 join = os.path.join
 def open_in_dir(filename, args = 'r'):
-	return open(join(repo.working_tree_dir+'/'+filename), args)
+	return open(join(repo.working_tree_dir,filename), args)
 
 import json
 def get_tickets():
