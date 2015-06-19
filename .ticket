@@ -745,7 +745,7 @@
     "due-date": null,
     "hash": "a0e58ef18193c0508e91afe07e5bcf8d227f42aaf06eb289a82e04b8c9410c9b",
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Fix initialization of projects",
     "type": "hotfix"
   }
