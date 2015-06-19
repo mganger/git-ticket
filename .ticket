@@ -755,7 +755,7 @@
     "due-date": null,
     "hash": "d59b23a07f0f4cdf3fa00a3aaa6eaf07ad3f18a57db2cd537df5ad968be9f5b6",
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Fix new command",
     "type": "feature"
   }
