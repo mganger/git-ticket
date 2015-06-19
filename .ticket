@@ -735,7 +735,7 @@
     "due-date": null,
     "hash": "3afc70cf0055a0e9c56de6dc22338a79a4ff22707bd981ade7282010541c50ca",
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Fix project initialization",
     "type": "feature"
   }
