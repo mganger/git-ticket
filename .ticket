@@ -778,5 +778,15 @@
     "state": "open",
     "title": "Handle detached heads",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "085f401ca3547ce6d96416a1ff985f90ab2b8b725b035c64ce0de29888c96540",
+    "start-date": null,
+    "state": "open",
+    "title": "Use prettytable to render ticket list",
+    "type": "feature"
   }
 ]
