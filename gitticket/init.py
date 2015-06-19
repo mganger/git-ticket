@@ -4,11 +4,14 @@ import subprocess
 import json
 
 def init():
-	#Use project name
-	assert gt.subject[0] != '', 'git-ticket init <project-name>'
 
 	#Create new branch with name ticket-PROJECT
-	project = gt.subject[0].upper()
+	project = None
+	try:
+		project = gt.subject[0].upper()
+	except:
+		print 'git-ticket init <project-name>'
+		exit(0)
 
 	#SHA is empty commit
 	#TODO assert project doesn't already exist
