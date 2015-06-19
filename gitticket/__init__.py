@@ -10,6 +10,7 @@ import state
 import show
 import new
 import project as proj
+import let
 
 
 import sys
@@ -142,3 +143,38 @@ def checkout(name,this_repo=repo):
 
 def push():
 	repo.git.push()
+
+
+class Circular(Exception): pass
+def check_circle(deps, new_dep):
+	first    = new_dep.key()
+	current  = first
+	all_deps = deps + new_dep
+	path = []
+	try:
+		while True:
+			next_dep = all_deps[current]
+			if next_dep in path:
+				raise Circular
+			path += [next_dep]
+	except KeyError:
+		pass
+
+def set_dependency(dependent, dependencies):
+	try:
+		#assume iterable
+		for i in dependencies:
+			set_dependency(dependent, i)
+	except TypeError:
+		#means that it wasn't iterable
+		mapped = {dependent['hash']: dependencies['hash']}
+		try:
+			with open_in_dir('.dependencies') as file:
+				deps = json.load(file)
+				check_circle(deps,mapped)
+			with open_in_dir('.dependencies','w') as file:
+				json.dump(deps+mapped)
+		except IOError:
+			with open('.dependencies','w') as file:
+				json.dump(file,[])
+			set_dependency(dependent,dependencies)
