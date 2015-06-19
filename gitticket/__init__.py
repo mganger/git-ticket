@@ -52,7 +52,10 @@ def project_branch():
 
 import tempfile
 cloning_dir = tempfile.mkdtemp()
-repo = active_repo.clone(cloning_dir, b=project_branch())
+
+repo = None
+try:    repo = active_repo.clone(cloning_dir, b=project_branch())
+except: pass
 
 
 commit_msg=\
