@@ -19,24 +19,26 @@ def init():
 		try:
 			past_branch = gt.current_branch
 
-			subprocess.check_call(["git checkout --orphan ticket-{}"].format(project),stdout=devnull,stderr=subprocess.STDOUT)
+			subprocess.check_call(['git', 'checkout', '--orphan', 'ticket-{}'.format(project)],stdout=devnull,stderr=subprocess.STDOUT)
 			os.system("git clean -fdx")
 			os.system("git reset")
+			with open(project, 'w') as file:
+				file.write(project+'\n')
 
-			open(project, 'w').write(project+'\n').close()
 			with open('.ticket', 'w') as file:
 				json.dump([],file)
 
-			os.system("git add {} .ticket".format(project))
-			os.system('git commit -m "Inital commit of ticket-{} branch"'.format(project))
-			os.system('git-ticket project {}'.format(project))
+			os.system("git add .ticket {}".format(project));
+			os.system('git commit -m "Initial commit of ticket-{} branch"'.format(project))
+			with open('.git/current_project', 'w') as file:
+				file.write(project)
 
 			print "Initialized project {}".format(project)
 
 		except:
 			print "Couldn't initialize branch. Does it already exist?"
 		finally:
-			try: subprocess.check_call(["git checkout {}".format(past_branch)], stdout=devnull)
+			try: subprocess.check_call("git checkout {} --force".format(past_branch).split(), stdout=devnull)
 			except: pass
 			#TODO add commit hook to folder (.git/hooks/commit-msg)
 			gt.exit(0)
