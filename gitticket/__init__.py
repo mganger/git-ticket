@@ -4,6 +4,7 @@ from git import Repo
 import os
 active_repo = Repo(os.getcwd())
 
+import init
 import list
 import start
 import state
