@@ -36,6 +36,8 @@ def new():
 			gt.commit_msg = '\n'.join( ''.join([s,type_name]) if 'type' in s else s for s in gt.commit_msg.split('\n'))
 		except InvalidType as e:
 			raise e
+		except IndexError:
+			pass
 			
 		info = get_from_temp(gt.commit_msg)
 	
