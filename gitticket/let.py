@@ -22,6 +22,9 @@ def let():
 			gt.set_dependency(second_set, first_set)
 		if relation is 'need':
 			gt.set_dependency(first_set,  second_set)
+
+		gt.repo.index.add(['.dependencies'])
+		gt.repo.index.commit( 'Added dependencies' )
 			
 	except gt.NoId:
 		print "Missing ticket id"
