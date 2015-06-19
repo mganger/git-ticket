@@ -758,5 +758,15 @@
     "state": "closed",
     "title": "Fix new command",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "And probably support, too",
+    "due-date": null,
+    "hash": "cd5def2109acae7d492cdbf99a49573cdeb7b3fef344514cd78f95ea313f4cb0",
+    "start-date": null,
+    "state": "open",
+    "title": "Fix release and hotfix naming conventions",
+    "type": "feature"
   }
 ]
