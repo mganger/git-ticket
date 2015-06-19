@@ -71,7 +71,7 @@ comments:
 
 join = os.path.join
 def open_in_dir(filename, args = 'r'):
-	return open(join(repo.working_tree_dir+'/'+filename), args)
+	return open(join(repo.working_tree_dir,filename), args)
 
 import json
 def get_tickets():
