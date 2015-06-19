@@ -12,19 +12,20 @@ def let():
 		if len(relation) < 1: raise NoType
 
 		relation = relation.pop()
-		print relation
 
+		tickets    = gt.get_tickets()
+		first_set  = gt.get_ticket(tickets, gt.subject[0])
+		second_set = gt.get_ticket(tickets, gt.subject[1])
 
-		first_set  = {gt.subject[0]}
-		second_set = {gt.subject[1]}
-
-		if relation is 'block':
+		if relation == 'block':
 			gt.set_dependency(second_set, first_set)
-		if relation is 'need':
+		if relation == 'need':
 			gt.set_dependency(first_set,  second_set)
 
-		gt.repo.index.add(['.dependencies'])
-		gt.repo.index.commit( 'Added dependencies' )
+		gt.repo.index.add   (['.dependencies'])
+		gt.repo.index.commit( 'Added dependency: {} {}s {}'.format(first_set['hash'][:6],relation,second_set['hash'][:6]) )
+		gt.push()
+		print 'Added dependency'
 			
 	except gt.NoId:
 		print "Missing ticket id"
@@ -34,5 +35,7 @@ def let():
 		print "Can't assign both a need and want relationship in the same command"
 	except NoType:
 		print "Need a relationship between tickets (need or block)"
-	except gt.Circular:
-		print "Circular dependency: {}"
+	except gt.Circular as e:
+		print "Circular dependency: {}".format(e)
+	except OSError:
+		print "Couldn't write dependencies to disk"
