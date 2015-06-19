@@ -768,5 +768,15 @@
     "state": "open",
     "title": "Fix release and hotfix naming conventions",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "58273df1f1b178e289ac27cb269c7e2450431de19c9ab84caa1931308621c0b1",
+    "start-date": null,
+    "state": "open",
+    "title": "Handle detached heads",
+    "type": "feature"
   }
 ]
