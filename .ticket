@@ -1027,9 +1027,20 @@
     "comments": null,
     "due-date": null,
     "hash": "3df5e656aefe231b9ea72d073840db80b30fdbff5fa0102f005947461ddfbf0e",
+    "index": 93,
     "start-date": null,
     "state": "open",
     "title": "Add yaml to dependencies",
     "type": "hotfix"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "684d8af766569379af3705521bed10774cc35f297dab25a02fc13c75c21ce397",
+    "start-date": null,
+    "state": "open",
+    "title": "Use lazy properties",
+    "type": "feature"
   }
 ]
