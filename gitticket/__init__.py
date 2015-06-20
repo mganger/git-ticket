@@ -169,14 +169,12 @@ class Circular(Exception): pass
 def check_circle(old_deps, new_dep):
 	first = new_dep[0]
 	deps = old_deps + [new_dep]
-	print deps
 	path = []
 
 	try:
 		current = first
 		while True:
 			next_dep = [ b for a,b in deps if a == current ][0]
-			print next_dep
 			if next_dep in path:
 				raise Circular
 			path += [next_dep]
