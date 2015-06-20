@@ -895,9 +895,20 @@
     "comments": null,
     "due-date": null,
     "hash": "da7250e0073385465ba3028ae361df16f63ac1ff48a5dd9affbbeca498a6c0cb",
+    "index": 81,
     "start-date": null,
     "state": "open",
     "title": "Improve error handling",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "63771d5cab22ee9358795ae6cf5f41994249ae3e388898f5e063845ef0383ebb",
+    "start-date": null,
+    "state": "open",
+    "title": "Implement more ticket fields",
     "type": "feature"
   }
 ]
