@@ -961,9 +961,20 @@
     "comments": null,
     "due-date": null,
     "hash": "d051198f0b40fbb8bb43571dfa0401ddf87b4dbc281905cb6579f88923b7ca59",
+    "index": 87,
     "start-date": null,
     "state": "open",
     "title": "Improve speed",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "e5dd38aa8c09b40d60229d9038fb0b1dc6753c25c57a2e09074e971d8d7aa5ea",
+    "start-date": null,
+    "state": "open",
+    "title": "Remove dependency on gitpython",
     "type": "feature"
   }
 ]
