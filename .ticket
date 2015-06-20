@@ -917,9 +917,20 @@
     "comments": null,
     "due-date": null,
     "hash": "40185fa827642bb9fd54cd2c1bac15d2d7ae5e1aedce406ec0a0a894b18a5aab",
+    "index": 83,
     "start-date": null,
     "state": "open",
     "title": "Improve UI",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "9c07b998d319377d04224ad8cd2d834b2c6911bc3ad389af49adfea1b6d940fa",
+    "start-date": null,
+    "state": "open",
+    "title": "Improve code base",
     "type": "feature"
   }
 ]
