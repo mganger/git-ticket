@@ -14,8 +14,8 @@ it yourself).
 
 Dependencies
 ------------
-git-flow
-GitPython
+ - git-flow
+ - GitPython
 
 Installation
 ------------
@@ -142,8 +142,10 @@ This will show all the current tickets. If you find a bug or come up with a
 feature, just add it using git-ticket (make sure the ticket branch is synced
 before and after doing so). Otherwise, just run
 
+	git ticket new
+	git ticket show
 	git ticket start <id>
-	git ticket sync
+	git push origin ticket-PROJECT
 
 where `<id>` is the ticket id, and start developing! Isn't it fun to be able to
 use the thing you're currently coding?
