@@ -5,7 +5,7 @@ import gitticket as gt
 if   gt.command  == 'init':   gt.init.init()
 elif gt.command == 'project': gt.proj.project()
 elif gt.command == 'new':     gt.new.new()
-elif gt.command == 'list':    gt.list.show_list()
+elif gt.command == 'list':    gt.lister.show_list()
 elif gt.command == 'start':   gt.start.start()
 elif gt.command == 'finish':  gt.start.finish()
 elif gt.command == 'show':    gt.show.show()

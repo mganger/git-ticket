@@ -93,6 +93,7 @@ class NoId    (Exception): pass
 class NoTicket(Exception): pass
 
 def get_ticket(tickets,string):
+	if string == 'Other': return {'title':'Other', 'hash':'0000000000'}
 	try:
 		#try to find by id
 		if not string or string == '': raise NoId
@@ -176,16 +177,29 @@ def check_circle(old_deps, new_dep):
 	except IndexError:
 		pass
 
+def get_dep_list():
+	with open_in_dir('.dependencies') as f:
+		return to_tuples(json.load(f))
+	
+
 def set_dependency(dependent, dependency):
 	mapped = (dependent['hash'], dependency['hash'])
 	try:
-		with open_in_dir('.dependencies') as f:
-			deps = to_tuples(json.load(f))
-			check_circle(deps,mapped)
+		deps = get_dep_list()
+		check_circle(deps,mapped)
 		with open_in_dir('.dependencies','w') as f:
 			json.dump(uniq(deps+[mapped]),f)
 	except IOError:
 		with open_in_dir('.dependencies','w') as f:
-			json.dump({},f,sort_keys=True, indent=2, separators=(',', ': '))
+			json.dump([],f,sort_keys=True, indent=2, separators=(',', ': '))
 		set_dependency(dependent,dependency)
 
+from collections import defaultdict
+def dep_tree(l):
+	trees = defaultdict(dict)
+	for parent, child in l:
+		trees[parent][child] = trees[child]
+	parents, children = zip(*l)
+	roots = set(parents) - set(children)
+
+	return {root: trees[root] for root in roots}
