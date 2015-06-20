@@ -16,13 +16,13 @@ slash_split = branch.split('/')
 branch_type = slash_split[0].strip()
 
 if branch_type in {'feature', 'hotfix', 'release', 'support'}:
-	assert len(slash_split) > 1, "Branch is not named correctly"
-	dash_split = slash_split[1].split('-')
+	try:
+		dash_split = slash_split[1].split('-')
+		project    = dash_split [0].strip().upper()
+		sha        = dash_split [1].strip().lower()
 
-	assert len(dash_split)  > 1, "Branch is not named correctly"
-	project = dash_split[0].strip().upper()
-	sha     = dash_split[1].strip().lower()
-
-	message = ''
-	with open(message_file, 'r') as file: message = file.read()
-	with open(message_file, 'w') as file: file.write("[{}-{}] {}".format(project, sha, message))
+		message = ''
+		with open(message_file, 'r') as file: message = file.read()
+		with open(message_file, 'w') as file: file.write("[{}-{}] {}".format(project, sha, message))
+	except:
+		pass

@@ -2,7 +2,15 @@ Git-Ticket
 ==========
 
 Git-ticket is intended to be a full-featured distributed ticketing system. It is
-inspired in large part by ticgit-ng.
+inspired in large part by ticgit-ng, and partially by Jira. It is not intended
+to replace large scale ticketing systems; rather, it is intended to make feature
+and bug tracking easy for small/medium sized projects. Additionaly, the
+interface is written to be solely commandline, as there are already great
+ticketing systems out there with nice web interfaces.
+
+It is still under heavy development, so any feature is liable to break. If
+something does break, you are encouraged to submit a ticket (and optionally fix
+it yourself).
 
 Dependencies
 ------------
@@ -11,6 +19,10 @@ GitPython
 
 Installation
 ------------
+
+The easiest way to get dependencies is to use pip:
+
+	sudo pip install gitpython
 
 To install, just go to the root directory and run:
 
