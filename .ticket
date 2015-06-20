@@ -983,9 +983,20 @@
     "comments": null,
     "due-date": null,
     "hash": "33ba410a5b34e228b6e34be3cabdc3c21fe4661f2f0539e35c3dd5f6432a6ff0",
+    "index": 89,
     "start-date": null,
     "state": "open",
     "title": "Improve listing",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": "Anything not committed in the dir will be deleted",
+    "due-date": null,
+    "hash": "b8ed674181f53bb47f0f0f363c22c9a8228a41aeed21c4cb086cba4ce945614a",
+    "start-date": null,
+    "state": "open",
+    "title": "Don't delete when initializing",
+    "type": "hotfix"
   }
 ]
