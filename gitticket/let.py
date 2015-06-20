@@ -22,7 +22,7 @@ def let():
 		if relation == 'need':
 			gt.set_dependency(first_set,  second_set)
 		if relation == 'release':
-			gt.remove_dependency(second_set, first_set)
+			gt.remove_dependency(first_set, second_set)
 
 		gt.repo.index.add   (['.dependencies'])
 		gt.repo.index.commit( 'Added dependency: {} {}s {}'.format(first_set['hash'][:6],relation,second_set['hash'][:6]) )
