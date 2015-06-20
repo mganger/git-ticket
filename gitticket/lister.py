@@ -1,12 +1,18 @@
 
 import gitticket as gt
 
-def print_dep_tree(tree, tickets, indent=0):
+def print_dep_tree(tree, tickets, indent=0, prefix = ''):
 	if tree == {}: return
-	for key,value in tree.items():
-		ticket = gt.get_ticket(tickets,key)
-		print '{:<5}{} {}'.format(ticket['index'],'-'*indent*4,ticket['title'])
-		print_dep_tree(value,indent=indent+1, tickets=tickets)
+	items = tree.items()
+	last  = items[-1][0]
+	for key,value in items:
+		t = gt.get_ticket(tickets,key)
+		print '{i:<5} {prefix}{char}-- {title}'.format(
+			i      = t['index'],
+			prefix = prefix,
+			char   = '`' if last == key else '|',
+			title  = t['title'] )
+		print_dep_tree(value,indent=indent+1, tickets=tickets, prefix=prefix+'|   ' if key != last else '    ')
 
 def show_list():
 	subs = gt.subject
