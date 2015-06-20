@@ -955,5 +955,15 @@
     "state": "open",
     "title": "Add recent command",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "d051198f0b40fbb8bb43571dfa0401ddf87b4dbc281905cb6579f88923b7ca59",
+    "start-date": null,
+    "state": "open",
+    "title": "Improve speed",
+    "type": "feature"
   }
 ]
