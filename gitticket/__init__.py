@@ -51,12 +51,19 @@ def project():
 def project_branch():
 	return 'ticket-'+project()
 
-import tempfile
-cloning_dir = tempfile.mkdtemp()
 
 repo = None
-try:    repo = active_repo.clone(cloning_dir, b=project_branch())
-except: pass
+try:
+	import tempfile
+	from hashlib import sha256
+	temp_dir = tempfile.gettempdir()
+	cloning_dir = os.path.join(temp_dir,sha256(project_branch()+active_repo.git_dir).hexdigest())
+	if os.path.exists(cloning_dir):
+		repo = Repo(cloning_dir)
+		repo.remote().pull()
+	else:
+		repo = active_repo.clone(cloning_dir, b=project_branch())
+except Exception as e: print e
 
 branch_types = {'feature', 'support', 'hotfix'}
 
