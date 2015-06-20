@@ -1005,9 +1005,20 @@
     "comments": null,
     "due-date": null,
     "hash": "0d5393eafcb1137010075171630d6e9f0002ecd43f4bf227ffe20f218c5e3939",
+    "index": 91,
     "start-date": null,
     "state": "open",
     "title": "Add setuptools to readme",
     "type": "hotfix"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "c6261743f384250d8df45367027fef354086f421699380e37206e97a0aef1976",
+    "start-date": null,
+    "state": "open",
+    "title": "Update dependency lists",
+    "type": "feature"
   }
 ]
