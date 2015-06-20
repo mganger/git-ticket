@@ -76,10 +76,14 @@ join = os.path.join
 def open_in_dir(filename, args = 'r'):
 	return open(join(repo.working_tree_dir,filename), args)
 
+def add_index(i,tick):
+	tick['index'] = i
+	return tick
+
 import json
 def get_tickets():
 	with open_in_dir('.ticket') as file:
-		return json.load(file)
+		return [ add_index(i,tick) for i, tick in enumerate(json.load(file)) ]
 def write_tickets(obj):
 	with open_in_dir('.ticket','w') as file:
 		json.dump(obj,file, sort_keys=True, indent=2, separators=(',', ': '))
@@ -93,7 +97,7 @@ class NoId    (Exception): pass
 class NoTicket(Exception): pass
 
 def get_ticket(tickets,string):
-	if string == 'Other': return {'title':'Other', 'hash':'0000000000'}
+	if string == 'Other': return {'title':'Other', 'hash':'0000000000', 'index': ''}
 	try:
 		#try to find by id
 		if not string or string == '': raise NoId

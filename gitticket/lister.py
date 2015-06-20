@@ -4,7 +4,8 @@ import gitticket as gt
 def print_dep_tree(tree, tickets, indent=0):
 	if tree == {}: return
 	for key,value in tree.items():
-		print '\t'*indent + gt.get_ticket(tickets,key)['title']
+		ticket = gt.get_ticket(tickets,key)
+		print '{:<5}{} {}'.format(ticket['index'],'-'*indent*4,ticket['title'])
 		print_dep_tree(value,indent=indent+1, tickets=tickets)
 
 def show_list():
@@ -22,7 +23,8 @@ def show_list():
 		print 'Dependency Tree:'
 		print '--------------- '
 		print_dep_tree(gt.dep_tree(dep_list), tickets=tickets)
-	except:
+	except Exception as e:
+		print e
 		gt.print_ticket_header()
 		for i,tick in enumerate(gt.get_tickets()):
 			if tick['state'] in allowed or 'all' in allowed:
