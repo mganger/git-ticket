@@ -906,9 +906,20 @@
     "comments": null,
     "due-date": null,
     "hash": "63771d5cab22ee9358795ae6cf5f41994249ae3e388898f5e063845ef0383ebb",
+    "index": 82,
     "start-date": null,
     "state": "open",
     "title": "Implement more ticket fields",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "40185fa827642bb9fd54cd2c1bac15d2d7ae5e1aedce406ec0a0a894b18a5aab",
+    "start-date": null,
+    "state": "open",
+    "title": "Improve UI",
     "type": "feature"
   }
 ]
