@@ -889,5 +889,15 @@
     "state": "open",
     "title": "Add prioritzing feature",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "da7250e0073385465ba3028ae361df16f63ac1ff48a5dd9affbbeca498a6c0cb",
+    "start-date": null,
+    "state": "open",
+    "title": "Improve error handling",
+    "type": "feature"
   }
 ]
