@@ -204,7 +204,7 @@
     "hash": "0c64dddcb113b33fd03f1551e1baac9eb50fe4657a81b33dc50997570df4a2c8",
     "index": 18,
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Fix indexing for numbering",
     "type": "feature"
   },
@@ -939,6 +939,7 @@
     "comments": null,
     "due-date": null,
     "hash": "21eb833c59cbcfe17e1d7a5d4ac53815d1170eaceb3a1eee5d2be5c583c25196",
+    "index": 85,
     "start-date": null,
     "state": "open",
     "title": "Implement Commands",
