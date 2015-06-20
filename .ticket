@@ -105,7 +105,7 @@
     "hash": "7d6eed0185b0dac3f81490408d5f6bba83cce92f5c3a789904d1e42f02218b68",
     "index": 9,
     "start-date": null,
-    "state": "in-progress",
+    "state": "closed",
     "title": "Add dependency capabilities",
     "type": "feature"
   },
@@ -950,6 +950,7 @@
     "comments": "Shoudl just show the git logs",
     "due-date": null,
     "hash": "f6fcfe8c0a84f83c7860cf231c61278478e4ff7f2358e4fc0de1b6ccfd9d3475",
+    "index": 86,
     "start-date": null,
     "state": "open",
     "title": "Add recent command",
