@@ -3,11 +3,10 @@ import gitticket as gt
 
 def print_dep_tree(tree, tickets, indent=0, prefix = ''):
 	if tree == {}: return
-	items = tree.items()
+	items = tree.items() if tree != {} else [x for x in tree.items() if x['state'] not in {'open', 'in-progress'}]
 	last  = items[-1][0]
 	for key,value in items:
 		t = gt.get_ticket(tickets,key)
-		if value == {} and t['state'] not in {'open', 'in-progress'}: continue
 		print '{i:<5} {prefix}{char}-- {title}'.format(
 			i      = t['index'],
 			prefix = prefix,
@@ -17,7 +16,7 @@ def print_dep_tree(tree, tickets, indent=0, prefix = ''):
 			tree    = value,
 			indent  = indent+1,
 			tickets = tickets,
-			prefix  = prefix + '|   ' if key != last else '    ' )
+			prefix  = prefix + ('|   ' if key != last else '    ') )
 
 def show_list():
 	subs = gt.subject
