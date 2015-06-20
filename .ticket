@@ -875,7 +875,7 @@
     "hash": "138eef7afb0cfbf887bfe554d535bb9796a11040de06c90e86f320d4d6eb879b",
     "index": 79,
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Add prioritizing feature",
     "type": "feature"
   },
@@ -884,6 +884,7 @@
     "comments": null,
     "due-date": null,
     "hash": "fb54b08c1ffc7c8b52e90fd2494344751dbd1c0383c7441cadaf675889c5c6e5",
+    "index": 80,
     "start-date": null,
     "state": "open",
     "title": "Add prioritzing feature",
