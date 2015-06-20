@@ -413,7 +413,7 @@
     "hash": "ce0f9e2c5be40e7c9ae16c1aacecfc48aca9ce745959b2f2643527391ce99bed",
     "index": 37,
     "start-date": null,
-    "state": "open",
+    "state": "invalid",
     "title": "Add shortcut for feature",
     "type": "feature"
   },
