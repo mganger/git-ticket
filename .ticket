@@ -928,9 +928,20 @@
     "comments": null,
     "due-date": null,
     "hash": "9c07b998d319377d04224ad8cd2d834b2c6911bc3ad389af49adfea1b6d940fa",
+    "index": 84,
     "start-date": null,
     "state": "open",
     "title": "Improve code base",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "21eb833c59cbcfe17e1d7a5d4ac53815d1170eaceb3a1eee5d2be5c583c25196",
+    "start-date": null,
+    "state": "open",
+    "title": "Implement Commands",
     "type": "feature"
   }
 ]
