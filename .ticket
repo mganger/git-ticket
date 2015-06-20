@@ -677,7 +677,7 @@
     "hash": "e28ed9a634d55c9de6685dd82cb3208f956cc136ad4e50867e03e49f01e47889",
     "index": 61,
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Speed up by reusing tmp dir",
     "type": "feature"
   },
