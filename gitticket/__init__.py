@@ -91,6 +91,10 @@ def add_file(*names):
 	repo.index.add(names)
 def commit(string):
 	repo.index.commit(string)
+def get_index(tickets, ticket):
+	for i,t in enumerate(tickets):
+		if ticket['hash'] == t['hash']:
+			return i
 
 
 class NoId    (Exception): pass
@@ -112,7 +116,7 @@ def get_ticket(tickets,string):
 
 def print_ticket(ticket,id=None):
 	print_ticket_fields(
-		id       = (id if id else get_tickets().index(ticket)),
+		id       = id if id else get_index(get_tickets(),ticket['index']),
 		hash     = ticket['hash'],
 		state    = ticket['state'],
 		assignee = ticket['assignee'],
@@ -192,11 +196,20 @@ def set_dependency(dependent, dependency):
 		deps = get_dep_list()
 		check_circle(deps,mapped)
 		with open_in_dir('.dependencies','w') as f:
-			json.dump(uniq(deps+[mapped]),f)
+			json.dump(uniq(deps+[mapped]),f, sort_keys=True, indent=2, separators=(',',': '))
 	except IOError:
 		with open_in_dir('.dependencies','w') as f:
 			json.dump([],f,sort_keys=True, indent=2, separators=(',', ': '))
 		set_dependency(dependent,dependency)
+
+def remove_dependency(dependent, dependency):
+	mapped = (dependent['hash'], dependency['hash'])
+	try:
+		deps = get_dep_list()
+		with open_in_dir('.dependencies','w') as f:
+			json.dump([t for t in deps if t != mapped],f, sort_keys=True, indent=2, separators=(',',': '))
+	except IOError:
+		print 'Could not write to file'
 
 from collections import defaultdict
 def dep_tree(l):

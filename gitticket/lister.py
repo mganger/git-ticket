@@ -34,7 +34,6 @@ def show_list():
 		print '--------------- '
 		print_dep_tree(gt.dep_tree(dep_list), tickets=tickets)
 	except Exception as e:
-		print e
 		gt.print_ticket_header()
 		for i,tick in enumerate(gt.get_tickets()):
 			if tick['state'] in allowed or 'all' in allowed:
