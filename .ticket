@@ -1016,9 +1016,20 @@
     "comments": null,
     "due-date": null,
     "hash": "c6261743f384250d8df45367027fef354086f421699380e37206e97a0aef1976",
+    "index": 92,
     "start-date": null,
     "state": "open",
     "title": "Update dependency lists",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "3df5e656aefe231b9ea72d073840db80b30fdbff5fa0102f005947461ddfbf0e",
+    "start-date": null,
+    "state": "open",
+    "title": "Add yaml to dependencies",
+    "type": "hotfix"
   }
 ]
