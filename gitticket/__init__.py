@@ -116,7 +116,7 @@ def get_ticket(tickets,string):
 
 def print_ticket(ticket,id=None):
 	print_ticket_fields(
-		id       = id if id else get_index(get_tickets(),ticket['index']),
+		id       = id if id else get_index(get_tickets(),ticket),
 		hash     = ticket['hash'],
 		state    = ticket['state'],
 		assignee = ticket['assignee'],

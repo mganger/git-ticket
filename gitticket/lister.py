@@ -7,6 +7,7 @@ def print_dep_tree(tree, tickets, indent=0, prefix = ''):
 	last  = items[-1][0]
 	for key,value in items:
 		t = gt.get_ticket(tickets,key)
+		if value == {} and t['state'] not in {'open', 'in-progress'}: continue
 		print '{i:<5} {prefix}{char}-- {title}'.format(
 			i      = t['index'],
 			prefix = prefix,
