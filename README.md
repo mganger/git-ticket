@@ -36,7 +36,11 @@ that changes can be observed instantly):
 Then, in a git repo, run:
 
 	git flow init
-	git ticket init
+	git ticket init <projectname>
+
+Where <projectname> is your chosen project name. It will be converted to
+all-caps. This name will go on your commits if you have the commit hook
+installed.
 
 Example Usage
 -------------
