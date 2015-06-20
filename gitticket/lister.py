@@ -12,7 +12,11 @@ def print_dep_tree(tree, tickets, indent=0, prefix = ''):
 			prefix = prefix,
 			char   = '`' if last == key else '|',
 			title  = t['title'] )
-		print_dep_tree(value,indent=indent+1, tickets=tickets, prefix=prefix+'|   ' if key != last else '    ')
+		print_dep_tree(
+			tree    = value,
+			indent  = indent+1,
+			tickets = tickets,
+			prefix  = prefix + '|   ' if key != last else '    ' )
 
 def show_list():
 	subs = gt.subject
