@@ -5,12 +5,13 @@ import os
 active_repo = Repo(os.getcwd())
 
 import init
-import list
+import lister
 import start
 import state
 import show
 import new
 import project as proj
+import let
 
 
 import sys
@@ -57,6 +58,8 @@ repo = None
 try:    repo = active_repo.clone(cloning_dir, b=project_branch())
 except: pass
 
+branch_types = {'feature', 'support', 'hotfix'}
+
 
 commit_msg=\
 """title:      
@@ -73,10 +76,14 @@ join = os.path.join
 def open_in_dir(filename, args = 'r'):
 	return open(join(repo.working_tree_dir,filename), args)
 
+def add_index(i,tick):
+	tick['index'] = i
+	return tick
+
 import json
 def get_tickets():
 	with open_in_dir('.ticket') as file:
-		return json.load(file)
+		return [ add_index(i,tick) for i, tick in enumerate(json.load(file)) ]
 def write_tickets(obj):
 	with open_in_dir('.ticket','w') as file:
 		json.dump(obj,file, sort_keys=True, indent=2, separators=(',', ': '))
@@ -84,29 +91,32 @@ def add_file(*names):
 	repo.index.add(names)
 def commit(string):
 	repo.index.commit(string)
+def get_index(tickets, ticket):
+	for i,t in enumerate(tickets):
+		if ticket['hash'] == t['hash']:
+			return i
+
+
+class NoId    (Exception): pass
+class NoTicket(Exception): pass
 
 def get_ticket(tickets,string):
-	if string == '':
-		print 'Enter a ticket id or hash'
-		exit(4)
-
-	#if its an id:
+	if string == 'Other': return {'title':'Other', 'hash':'0000000000', 'index': ''}
 	try:
+		#try to find by id
+		if not string or string == '': raise NoId
 		return tickets[int(string)]
-		
-	except:
+
+	except (IndexError, ValueError):
 		#try to find it by hash
 		for tick in tickets:
 			if string in tick['hash']:
 				return tick
-
-	if string == None:
-		print "Id or hash not valid"
-		exit(3)
+		raise NoTicket
 
 def print_ticket(ticket,id=None):
 	print_ticket_fields(
-		id       = (id if id else get_tickets().index(ticket)),
+		id       = id if id else get_index(get_tickets(),ticket),
 		hash     = ticket['hash'],
 		state    = ticket['state'],
 		assignee = ticket['assignee'],
@@ -146,3 +156,65 @@ def checkout(name,this_repo=repo):
 
 def push():
 	repo.git.push()
+
+def to_tuples(l):
+	return [(a,b) for a,b in l]
+
+def uniq(seq):
+    seen = set()
+    seen_add = seen.add
+    return [ x for x in seq if not (x in seen or seen_add(x))]
+
+class Circular(Exception): pass
+def check_circle(old_deps, new_dep):
+	first = new_dep[0]
+	deps = old_deps + [new_dep]
+	path = []
+
+	try:
+		current = first
+		while True:
+			next_dep = [ b for a,b in deps if a == current ][0]
+			if next_dep in path:
+				raise Circular
+			path += [next_dep]
+			current = next_dep
+
+	except IndexError:
+		pass
+
+def get_dep_list():
+	with open_in_dir('.dependencies') as f:
+		return to_tuples(json.load(f))
+	
+
+def set_dependency(dependent, dependency):
+	mapped = (dependent['hash'], dependency['hash'])
+	try:
+		deps = get_dep_list()
+		check_circle(deps,mapped)
+		with open_in_dir('.dependencies','w') as f:
+			json.dump(uniq(deps+[mapped]),f, sort_keys=True, indent=2, separators=(',',': '))
+	except IOError:
+		with open_in_dir('.dependencies','w') as f:
+			json.dump([],f,sort_keys=True, indent=2, separators=(',', ': '))
+		set_dependency(dependent,dependency)
+
+def remove_dependency(dependent, dependency):
+	mapped = (dependent['hash'], dependency['hash'])
+	try:
+		deps = get_dep_list()
+		with open_in_dir('.dependencies','w') as f:
+			json.dump([t for t in deps if t != mapped],f, sort_keys=True, indent=2, separators=(',',': '))
+	except IOError:
+		print 'Could not write to file'
+
+from collections import defaultdict
+def dep_tree(l):
+	trees = defaultdict(dict)
+	for parent, child in l:
+		trees[parent][child] = trees[child]
+	parents, children = zip(*l)
+	roots = set(parents) - set(children)
+
+	return {root: trees[root] for root in roots}

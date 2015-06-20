@@ -3,6 +3,7 @@
 import sys
 from git import Repo
 import os
+import re
 
 repo = Repo(os.getcwd())
 
@@ -10,19 +11,18 @@ assert os.path.exists(sys.argv[1]), "No file to change the commit of"
 message_file = sys.argv[1]
 
 
+exp = r'(feature|hotfix|release|support)/([A-Z]+)-([a-z0-9]+).*'
 
-branch = repo.active_branch.name
-slash_split = branch.split('/')
-branch_type = slash_split[0].strip()
+match = re.search(exp,repo.active_branch.name)
 
-if branch_type in {'feature', 'hotfix', 'release', 'support'}:
-	assert len(slash_split) > 1, "Branch is not named correctly"
-	dash_split = slash_split[1].split('-')
-
-	assert len(dash_split)  > 1, "Branch is not named correctly"
-	project = dash_split[0].strip().upper()
-	sha     = dash_split[1].strip().lower()
-
-	message = ''
-	with open(message_file, 'r') as file: message = file.read()
-	with open(message_file, 'w') as file: file.write("[{}-{}] {}".format(project, sha, message))
+if match:
+	try:
+		project = match.group(2)
+		sha     = match.group(3)
+		message = None
+		with open(message_file, 'r') as f:
+			message = f.read()
+		with open(message_file, 'w') as f:
+			f.write("[{}-{}] {}".format(project, sha, message))
+	except:
+		print "Couldn't write to file"

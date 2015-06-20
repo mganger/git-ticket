@@ -4,17 +4,24 @@ import re
 def show():
 	tickets = gt.get_tickets()
 	try:
-		if not gt.subject: raise Exception
+		if len(gt.subject) == 0: raise gt.NoId
+
 		ticks_to_print = [gt.get_ticket(tickets, sub) for sub in gt.subject]
+
 		gt.print_ticket_header()
-		for ticket in ticks_to_print: gt.print_ticket(ticket)
-	except:
+		for ticket in ticks_to_print:
+			gt.print_ticket(ticket)
+
+	except gt.NoId:
 		#show current ticket
 		try:
-			branch_name = gt.active_repo.active_branch.name
-			match = re.search(r'\w+/\w+-(\w+)', branch_name)
+			match  = re.search(r'\w+/\w+-(\w+)', gt.current_branch)
 			ticket = gt.get_ticket(tickets, match.group(1))
+
 			gt.print_ticket_header()
 			gt.print_ticket(ticket)
-		except:
-			print 'Not on a ticket branch'
+		except AttributeError:
+			print 'Not on a ticket branch (feature,hotfix,or support)'
+
+	except gt.NoTicket as e:
+		print 'Invalid ticket {}'.format(e)
