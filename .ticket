@@ -1049,9 +1049,20 @@
     "comments": null,
     "due-date": null,
     "hash": "7edb8373c2be20dce3ef3b609deb462255c4a0a1fdf19f227bb639d4f6167b30",
+    "index": 95,
     "start-date": null,
     "state": "open",
     "title": "Add cleanup feature",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "8617afa87b5a1a33ac5f18ddb11bd570fc83d4207a14b5de2f37a2cd5894c648",
+    "start-date": null,
+    "state": "open",
+    "title": "Fix date handling",
     "type": "feature"
   }
 ]
