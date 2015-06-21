@@ -16,15 +16,13 @@ Dependencies
 ------------
  - git-flow
  - GitPython
+ - setuptools
 
 Installation
 ------------
 
-The easiest way to get dependencies is to use pip:
-
-	sudo pip install gitpython
-
-To install, just go to the root directory and run:
+The easiest way to get dependencies is to use pip (get pip through your
+distro).  To install, just go to the root directory and run:
 
 	sudo python setup.py install
 
