@@ -1029,7 +1029,7 @@
     "hash": "3df5e656aefe231b9ea72d073840db80b30fdbff5fa0102f005947461ddfbf0e",
     "index": 93,
     "start-date": null,
-    "state": "open",
+    "state": "closed",
     "title": "Add yaml to dependencies",
     "type": "hotfix"
   },
@@ -1060,6 +1060,7 @@
     "comments": null,
     "due-date": null,
     "hash": "8617afa87b5a1a33ac5f18ddb11bd570fc83d4207a14b5de2f37a2cd5894c648",
+    "index": 96,
     "start-date": null,
     "state": "open",
     "title": "Fix date handling",
