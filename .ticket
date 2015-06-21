@@ -1038,9 +1038,20 @@
     "comments": null,
     "due-date": null,
     "hash": "684d8af766569379af3705521bed10774cc35f297dab25a02fc13c75c21ce397",
+    "index": 94,
     "start-date": null,
     "state": "open",
     "title": "Use lazy properties",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "7edb8373c2be20dce3ef3b609deb462255c4a0a1fdf19f227bb639d4f6167b30",
+    "start-date": null,
+    "state": "open",
+    "title": "Add cleanup feature",
     "type": "feature"
   }
 ]
