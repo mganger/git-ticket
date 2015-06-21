@@ -974,7 +974,7 @@
     "hash": "e5dd38aa8c09b40d60229d9038fb0b1dc6753c25c57a2e09074e971d8d7aa5ea",
     "index": 88,
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Remove dependency on gitpython",
     "type": "feature"
   },
