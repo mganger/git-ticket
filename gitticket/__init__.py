@@ -182,7 +182,7 @@ def checkout(name,this_repo=repo):
 	return b_current
 
 def push():
-	repo.git.push()
+	repo.push()
 
 def to_tuples(l):
 	return [(a,b) for a,b in l]
