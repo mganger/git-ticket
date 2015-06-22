@@ -40,7 +40,7 @@ class Repo:
 		sp.check_call(['git','-C',self.directory,'add']+[file_name])
 
 	def commit(self,message):
-		sp.check_call(['git','-C',self.directory,'commit','-m',message])
+		sp.check_call(['git','-C',self.directory,'commit','-m "',message,'"'])
 
 	def checkout(self, branch):
 		sp.check_call(['git','-C',self.directory,'checkout',branch])

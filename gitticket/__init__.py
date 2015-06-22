@@ -115,7 +115,7 @@ def write_tickets(obj):
 	with open_in_dir('.ticket','w') as file:
 		json.dump(obj,file, sort_keys=True, indent=2, separators=(',', ': '))
 def add_file(*names):
-	repo.add(names)
+	repo.add(*names)
 def commit(string):
 	repo.commit(string)
 def get_index(tickets, ticket):
