@@ -10,6 +10,9 @@ def init():
 def show_list():
 	import lister
 	lister.show_list()
+def show():
+	import show
+	show.show()
 def start():
 	import start
 	start.start()
@@ -233,8 +236,8 @@ def remove_dependency(dependent, dependency):
 	except IOError:
 		print 'Could not write to file'
 
-from collections import defaultdict
 def dep_tree(l):
+	from collections import defaultdict
 	trees = defaultdict(dict)
 	for parent, child in l:
 		trees[parent][child] = trees[child]
