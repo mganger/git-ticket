@@ -66,8 +66,8 @@ def new():
 		#Save the file to tickets directory
 		gt.write_tickets(ticks)
 
-		gt.repo.index.add(['.ticket'])
-		gt.repo.index.commit('Added [{}-{}]'.format(gt.project(), info['hash'][:6]))
+		gt.repo.add('.ticket')
+		gt.repo.commit('Added [{}-{}]'.format(gt.project(), info['hash'][:6]))
 		gt.push()
 
 		#show the ticket
