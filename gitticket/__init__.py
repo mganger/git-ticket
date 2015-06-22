@@ -1,8 +1,5 @@
 #This is the main interface to the package
 
-import yappi
-yappi.start()
-
 import os
 from gitrepo import Repo
 active_repo = Repo(os.getcwd())
@@ -228,5 +225,3 @@ def dep_tree(l):
 	roots = set(parents) - set(children)
 
 	return {root: trees[root] for root in roots}
-
-yappi.get_func_stats().print_all()

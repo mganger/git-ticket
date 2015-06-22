@@ -1,10 +1,10 @@
 import gitticket as gt
 import tempfile
 import os
-import yaml
 from hashlib import sha256
 
 def get_from_temp(message):
+	import yaml
 	with tempfile.NamedTemporaryFile() as msg:
 		msg.write(gt.commit_msg)
 		msg.seek(0)
