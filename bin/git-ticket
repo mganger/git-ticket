@@ -2,14 +2,14 @@
 
 import gitticket as gt
 
-if   gt.command == 'init':    gt.init.init()
-elif gt.command == 'project': gt.proj.project()
-elif gt.command == 'new':     gt.new.new()
-elif gt.command == 'list':    gt.lister.show_list()
-elif gt.command == 'start':   gt.start.start()
-elif gt.command == 'finish':  gt.start.finish()
-elif gt.command == 'show':    gt.show.show()
-elif gt.command == 'let':     gt.let.let()
-elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}: gt.state.modify(gt.command)
+if   gt.command == 'init':    gt.init()
+elif gt.command == 'project': gt.proj()
+elif gt.command == 'new':     gt.new()
+elif gt.command == 'list':    gt.show_list()
+elif gt.command == 'start':   gt.start()
+elif gt.command == 'finish':  gt.finish()
+elif gt.command == 'show':    gt.show()
+elif gt.command == 'let':     gt.let()
+elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}: gt.modify(gt.command)
 else:
 	print "git-ticket"

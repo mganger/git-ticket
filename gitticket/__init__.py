@@ -4,14 +4,31 @@ import os
 from gitrepo import Repo
 active_repo = Repo(os.getcwd())
 
-import init
-import lister
-import start
-import state
-import show
-import new
-import project as proj
-import let
+def init():
+	import init
+	init.init()
+def show_list():
+	import lister
+	lister.show_list()
+def start():
+	import start
+	start.start()
+def finish():
+	import start
+	start.finish()
+def modify(command):
+	import state
+	state.modify(command)
+def new():
+	import new
+	new.new()
+def proj():
+	import project
+	project.project()
+	
+def let():
+	import let
+	let.let()
 
 
 import sys
