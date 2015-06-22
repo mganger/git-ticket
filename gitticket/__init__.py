@@ -1,7 +1,10 @@
 #This is the main interface to the package
 
-from git import Repo
+import yappi
+yappi.start()
+
 import os
+from gitrepo import Repo
 active_repo = Repo(os.getcwd())
 
 import init
@@ -39,7 +42,7 @@ try:
 	verb    = args[2::2]
 except: pass
 
-current_branch = active_repo.active_branch.name
+current_branch = active_repo.active_branch
 
 def project():
 	try:
@@ -60,9 +63,9 @@ try:
 	cloning_dir = os.path.join(temp_dir,sha256(project_branch()+active_repo.git_dir).hexdigest())
 	if os.path.exists(cloning_dir):
 		repo = Repo(cloning_dir)
-		repo.remote().pull()
+		repo.pull()
 	else:
-		repo = active_repo.clone(cloning_dir, b=project_branch())
+		repo = active_repo.clone(cloning_dir, branch=project_branch())
 except Exception as e: print e
 
 branch_types = {'feature', 'support', 'hotfix'}
@@ -95,9 +98,9 @@ def write_tickets(obj):
 	with open_in_dir('.ticket','w') as file:
 		json.dump(obj,file, sort_keys=True, indent=2, separators=(',', ': '))
 def add_file(*names):
-	repo.index.add(names)
+	repo.add(names)
 def commit(string):
-	repo.index.commit(string)
+	repo.commit(string)
 def get_index(tickets, ticket):
 	for i,t in enumerate(tickets):
 		if ticket['hash'] == t['hash']:
@@ -158,7 +161,7 @@ def mark_state(ticket, state, tickets):
 
 def checkout(name,this_repo=repo):
 	b_current = this_repo.active_branch
-	repo.git.checkout(name)
+	repo.checkout(name)
 	return b_current
 
 def push():
@@ -225,3 +228,5 @@ def dep_tree(l):
 	roots = set(parents) - set(children)
 
 	return {root: trees[root] for root in roots}
+
+yappi.get_func_stats().print_all()
