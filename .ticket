@@ -1093,8 +1093,9 @@
     "comments": null,
     "due-date": null,
     "hash": "c5a7d2a0f0d5438a44492d24d70f0e662c7bb45246778ca3e517fd4af65bd415",
+    "index": 99,
     "start-date": null,
-    "state": "open",
+    "state": "in-progress",
     "title": "Remove all references to old gitpython stuff",
     "type": "feature"
   }
