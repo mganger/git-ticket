@@ -5,7 +5,9 @@ def print_dep_tree(tree, tickets, indent=0, prefix = ''):
 	if tree == {}: return
 	items = [ (gt.get_ticket(tickets,key),value) for key,value in tree.items() ]
 	pruned = [ (t,v) for t,v in items if v != {} or t['state'] in {'open','in-progress'} ]
-	last = pruned[-1][0]
+	last = None
+	try: last = pruned[-1][0]
+	except: pass
 	for t,value in pruned:
 		print '{i:<5} {prefix}{char}-- {title}'.format(
 			i      = t['index'],

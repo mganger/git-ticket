@@ -1,17 +1,37 @@
 #This is the main interface to the package
 
-from git import Repo
 import os
+from gitrepo import Repo
 active_repo = Repo(os.getcwd())
 
-import init
-import lister
-import start
-import state
-import show
-import new
-import project as proj
-import let
+def init():
+	import init
+	init.init()
+def show_list():
+	import lister
+	lister.show_list()
+def show():
+	import show
+	show.show()
+def start():
+	import start
+	start.start()
+def finish():
+	import start
+	start.finish()
+def modify(command):
+	import state
+	state.modify(command)
+def new():
+	import new
+	new.new()
+def proj():
+	import project
+	project.project()
+	
+def let():
+	import let
+	let.let()
 
 
 import sys
@@ -39,7 +59,7 @@ try:
 	verb    = args[2::2]
 except: pass
 
-current_branch = active_repo.active_branch.name
+current_branch = active_repo.active_branch
 
 def project():
 	try:
@@ -51,12 +71,19 @@ def project():
 def project_branch():
 	return 'ticket-'+project()
 
-import tempfile
-cloning_dir = tempfile.mkdtemp()
 
 repo = None
-try:    repo = active_repo.clone(cloning_dir, b=project_branch())
-except: pass
+try:
+	import tempfile
+	from hashlib import sha256
+	temp_dir = tempfile.gettempdir()
+	cloning_dir = os.path.join(temp_dir,sha256(project_branch()+active_repo.git_dir).hexdigest())
+	if os.path.exists(cloning_dir):
+		repo = Repo(cloning_dir)
+		repo.pull()
+	else:
+		repo = active_repo.clone(cloning_dir, branch=project_branch())
+except Exception as e: print e
 
 branch_types = {'feature', 'support', 'hotfix'}
 
@@ -88,9 +115,9 @@ def write_tickets(obj):
 	with open_in_dir('.ticket','w') as file:
 		json.dump(obj,file, sort_keys=True, indent=2, separators=(',', ': '))
 def add_file(*names):
-	repo.index.add(names)
+	repo.add(*names)
 def commit(string):
-	repo.index.commit(string)
+	repo.commit(string)
 def get_index(tickets, ticket):
 	for i,t in enumerate(tickets):
 		if ticket['hash'] == t['hash']:
@@ -151,11 +178,11 @@ def mark_state(ticket, state, tickets):
 
 def checkout(name,this_repo=repo):
 	b_current = this_repo.active_branch
-	repo.git.checkout(name)
+	repo.checkout(name)
 	return b_current
 
 def push():
-	repo.git.push()
+	repo.push()
 
 def to_tuples(l):
 	return [(a,b) for a,b in l]
@@ -209,8 +236,8 @@ def remove_dependency(dependent, dependency):
 	except IOError:
 		print 'Could not write to file'
 
-from collections import defaultdict
 def dep_tree(l):
+	from collections import defaultdict
 	trees = defaultdict(dict)
 	for parent, child in l:
 		trees[parent][child] = trees[child]
