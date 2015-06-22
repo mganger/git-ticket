@@ -1,5 +1,8 @@
 #!/usr/bin/python2
 
+#import yappi
+#yappi.set_clock_type('wall')
+#yappi.start()
 import gitticket as gt
 
 if   gt.command == 'init':    gt.init()
@@ -13,3 +16,4 @@ elif gt.command == 'let':     gt.let()
 elif gt.command in {'closed', 'invalid', 'open', 'in-progress'}: gt.modify(gt.command)
 else:
 	print "git-ticket"
+#yappi.get_func_stats().print_all()
