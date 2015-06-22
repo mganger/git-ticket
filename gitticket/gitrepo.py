@@ -36,8 +36,8 @@ class Repo:
 	def push(self):
 		sp.check_call(['git','-C',self.directory,'push'])
 
-	def add(self, file_list):
-		sp.check_call(['git','-C',self.directory,'add']+file_list)
+	def add(self, file_name):
+		sp.check_call(['git','-C',self.directory,'add']+[file_name])
 
 	def commit(self,message):
 		sp.check_call(['git','-C',self.directory,'commit','-m',message])
