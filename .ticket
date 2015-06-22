@@ -1065,5 +1065,27 @@
     "state": "open",
     "title": "Fix date handling",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "70486b9ddf52dcd04ae9a63f69fbc885012bfa8cabc7243cf23dc4e3f52b775e",
+    "index": 97,
+    "start-date": null,
+    "state": "invalid",
+    "title": "Don't output git stuff to terminal",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "8356387a31ac1abfe546796a9cb9f7ca607114fbd165ddbb72c0d725d7827cf4",
+    "index": 98,
+    "start-date": null,
+    "state": "open",
+    "title": "Block output to terminal",
+    "type": "feature"
   }
 ]
