@@ -15,7 +15,6 @@ it yourself).
 Dependencies
 ------------
  - git-flow
- - GitPython
  - setuptools
 
 Installation
