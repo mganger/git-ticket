@@ -16,6 +16,10 @@ def get_top_level(path='.'):
 	else:
 		return get_top_level(up_one)
 
+def get_branch(git_path):
+	with open(join(git_path,'HEAD')) as head:
+		return '/'.join(head.read().strip().split('/')[2:])
+
 @contextmanager
 def cd(newdir):
 	prevdir = os.getcwd()
@@ -29,7 +33,7 @@ class Repo:
 	def __init__(self,directory='.'):
 		self.working_tree_dir = get_top_level(directory)
 		self.git_dir          = join(self.working_tree_dir,'.git')
-		self.active_branch    = sp.check_output(['git','-C',self.working_tree_dir,'status']).split('\n')[0].split()[2]
+		self.active_branch    = get_branch(self.git_dir)
 
 	def clone(self,new_dir,branch=None):
 		command = ['git','clone']
