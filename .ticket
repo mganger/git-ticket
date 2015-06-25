@@ -1098,5 +1098,15 @@
     "state": "closed",
     "title": "Remove all references to old gitpython stuff",
     "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "b523fdfd968e67e22661a7f193924603d011020d6a79f6f980aa75850ff3f485",
+    "start-date": null,
+    "state": "open",
+    "title": "Fix yaml dependency",
+    "type": "feature"
   }
 ]
