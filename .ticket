@@ -1104,9 +1104,20 @@
     "comments": null,
     "due-date": null,
     "hash": "b523fdfd968e67e22661a7f193924603d011020d6a79f6f980aa75850ff3f485",
+    "index": 100,
     "start-date": null,
     "state": "open",
     "title": "Fix yaml dependency",
+    "type": "feature"
+  },
+  {
+    "assignee": null,
+    "comments": null,
+    "due-date": null,
+    "hash": "da8c82bd27817d049a33f277eda3d3154d0876310645e4e83f658b5758feff57",
+    "start-date": null,
+    "state": "open",
+    "title": "Remove fetching of non ticket branches into tmp",
     "type": "feature"
   }
 ]
