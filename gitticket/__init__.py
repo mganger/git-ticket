@@ -79,8 +79,8 @@ try:
 	temp_dir = tempfile.gettempdir()
 	cloning_dir = os.path.join(temp_dir,sha256(project_branch()+active_repo.git_dir).hexdigest())
 	if os.path.exists(cloning_dir):
+		#If the repo exists, we assume that it is kept up to date by anything that modifies it
 		repo = Repo(cloning_dir)
-		repo.pull()
 	else:
 		repo = active_repo.clone(cloning_dir, branch=project_branch())
 except Exception as e: print e
