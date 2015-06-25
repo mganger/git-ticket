@@ -39,7 +39,7 @@ class Repo:
 		command = ['git','clone']
 		if branch:
 			command += ['-b', branch]
-		command += [self.directory,new_dir]
+		command += [self.working_tree_dir,new_dir]
 		if not os.path.exists(new_dir):
 			os.mkdir(new_dir)
 		with cd(new_dir):
@@ -47,16 +47,16 @@ class Repo:
 		return Repo(new_dir)
 
 	def pull(self):
-		sp.check_call(['git','-C',self.directory,'pull'])
+		sp.check_call(['git','-C',self.working_tree_dir,'pull'])
 
 	def push(self):
-		sp.check_call(['git','-C',self.directory,'push'])
+		sp.check_call(['git','-C',self.working_tree_dir,'push'])
 
 	def add(self, file_name):
-		sp.check_call(['git','-C',self.directory,'add']+[file_name])
+		sp.check_call(['git','-C',self.working_tree_dir,'add']+[file_name])
 
 	def commit(self,message):
-		sp.check_call(['git','-C',self.directory,'commit','-m "',message,'"'])
+		sp.check_call(['git','-C',self.working_tree_dir,'commit','-m "',message,'"'])
 
 	def checkout(self, branch):
-		sp.check_call(['git','-C',self.directory,'checkout',branch])
+		sp.check_call(['git','-C',self.working_tree_dir,'checkout',branch])
