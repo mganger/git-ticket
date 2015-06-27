@@ -3,19 +3,51 @@ import tempfile
 import os
 from hashlib import sha256
 
+fields = gt.commit_msg.split()
+def pairwise(iterable):
+	from itertools import tee
+	"s -> (s0,s1), (s1,s2), (s2, s3), ..."
+	a, b = tee(iterable)
+	next(b, None)
+	return zip(a, b)
+
+
+class FieldNotFound(Exception): pass
+def split_on_fields(message, f):
+	split_indices = [message.find(field) for field in f] + [len(message)]
+	if -1 in split_indices: raise FieldNotFound
+
+	return [ message[i:j] for i,j in pairwise(split_indices) ]
+
+def line_to_dict_key(line):
+	words = line.split()
+	#take the first word off, and take off the colon
+	first = words[0][:-1]
+	rest  = words[1:]
+	return {first: None} if not rest else {first: ' '.join(rest)}
+
+def merge_dicts(dicts):
+	result = {}
+	for dictionary in dicts:
+		result.update(dictionary)
+	return result
+
+def parse_message(message):
+	lines = split_on_fields(message, fields)
+	return merge_dicts( line_to_dict_key(line) for line in lines )
+
 def get_from_temp(message):
-	import yaml
 	with tempfile.NamedTemporaryFile() as msg:
 		msg.write(gt.commit_msg)
 		msg.seek(0)
 		os.system("vim {}".format(msg.name))
 		msg.seek(0)
-		return yaml.load(msg)
+		return parse_message(msg.read())
 	
 
 def new():
 	#Get a tmp file and do the whole git commit thing
-	#Parse the ticket for (use yaml):
+	#Parse the ticket:
 	#	title
 	#	assignee       (default current)
 	#	start-date     (default today)
