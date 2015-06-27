@@ -47,7 +47,7 @@ def get_from_temp(message):
 
 def new():
 	#Get a tmp file and do the whole git commit thing
-	#Parse the ticket for (use yaml):
+	#Parse the ticket:
 	#	title
 	#	assignee       (default current)
 	#	start-date     (default today)
