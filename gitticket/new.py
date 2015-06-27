@@ -37,13 +37,12 @@ def parse_message(message):
 	return merge_dicts( line_to_dict_key(line) for line in lines )
 
 def get_from_temp(message):
-	import yaml
 	with tempfile.NamedTemporaryFile() as msg:
 		msg.write(gt.commit_msg)
 		msg.seek(0)
 		os.system("vim {}".format(msg.name))
 		msg.seek(0)
-		return yaml.load(msg)
+		return parse_message(msg.read())
 	
 
 def new():
