@@ -10,7 +10,6 @@ setup(
 	license          = 'MIT',
 	packages         = [ 'gitticket' ],
 	package_data     = { 'gitticket': ['commit-msg'] },
-	install_requires = [ 'yaml' ],
 	scripts          = [ 'bin/git-ticket' ],
 	zip_safe         = False
 )
